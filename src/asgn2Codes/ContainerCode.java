@@ -1,5 +1,9 @@
 package asgn2Codes;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
 import asgn2Exceptions.InvalidCodeException;
 
 /* Note to self:
@@ -79,6 +83,7 @@ import asgn2Exceptions.InvalidCodeException;
  */ 
 public class ContainerCode {
 
+	String code;
 
 	/**
 	 * Constructs a new container code.
@@ -90,8 +95,58 @@ public class ContainerCode {
 	 * of six digits; or if the Check Digit is incorrect.
 	 */
 	public ContainerCode(String code) throws InvalidCodeException {
-		//Implementation Here
+		// get the length of code
+		int length = code.length();
+		// pattern to check the three upper-case letter
+		String pattern1 = "[A-Z]{3}[A-Z0-9]*";
+		Pattern p1 = Pattern.compile(pattern1);
+		Matcher m1 = p1.matcher(code);
+		// pattern to check the Category Identifier 'U'
+		String pattern2 = "[A-Z]{3}U[A-Z0-9]*";
+		Pattern p2 = Pattern.compile(pattern2);
+		Matcher m2 = p2.matcher(code);
+		// pattern to check if the Serial Number consists of six digits
+		String pattern3 = "[A-Z]{3}U[0-9]{6}[0-9]*";
+		Pattern p3 = Pattern.compile(pattern3);
+		Matcher m3 = p3.matcher(code);
+		// check the check digit
+		char[] codeArray = code.toCharArray();
+		char[] letterArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+		int checkDigit = Integer.parseInt(code.substring(code.length() - 1));
+		int sumOfThreeUpperCase = 0;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 26; j++) {
+				if (codeArray[i] == letterArray[j]) {
+					sumOfThreeUpperCase += j;
+				}
+			}
+		}
+		int sumOfDigits = 0;
+		for (int i = 0; i < 6; i++) {
+			sumOfDigits += Character.getNumericValue(codeArray[4+i]);
+		}
+		int sum = sumOfThreeUpperCase + 20 + sumOfDigits;
+		
+		if (code == null || code.isEmpty()) {
+			throw new InvalidCodeException("Missing code");
+		}
+
+		if (length != 11) {
+			throw new InvalidCodeException("the code is not eleven characters long");
+		} else if (!m1.find()) {
+			throw new InvalidCodeException("the code does not have three upper-case letter");
+		} else if (!m2.find()) {
+			throw new InvalidCodeException("the code does not have Indentifier 'U'");
+		} else if (!m3.find()) {
+			throw new InvalidCodeException("the code does not consist of six digits");
+		} else if (checkDigit != sum % 10) {
+			throw new InvalidCodeException("the Check Digit is incorrect");
+		}
+		
+		this.code = code;
 	}
+	
+
 
 
 	/* (non-Javadoc)
@@ -99,7 +154,7 @@ public class ContainerCode {
 	 */
 	@Override
 	public String toString() {
-		//Implementation Here
+		return code;
 	}
 
 	
@@ -114,6 +169,11 @@ public class ContainerCode {
 	@Override
 	public boolean equals(Object obj) {
 		//Implementation Here
+		if (obj.toString() == code) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 

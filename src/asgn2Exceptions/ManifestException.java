@@ -6,7 +6,7 @@ package asgn2Exceptions;
  * invalid ship's manifest or perform an incorrect operation
  * on a manifest.
  * 
- * @author CAB302 
+ * @author CAB302 Yunkai Zhu
  * @version 1.0
  */
 @SuppressWarnings("serial")
@@ -18,7 +18,7 @@ public class ManifestException extends CargoException {
 	 * @param message an informative message describing the problem encountered
 	 */
 	public ManifestException(String message) {
-		//Implementation Here
+		super("Manifest Exception" + message);
 	}
 
 }

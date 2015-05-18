@@ -22,11 +22,13 @@ import asgn2Exceptions.InvalidCodeException;
 import asgn2Exceptions.InvalidContainerException;
 
 /**
- * @author 
+ * @author Yunkai(Kian) Zhu n9253921
  *
  */
 public class ContainerTests {
 	//Implementation Here - includes tests for ContainerCode and for the actual container classes. 
+	
+	/*****************************************Container Code Tests***************************************************/
 	private ContainerCode code_validatoin_test;
 	private ContainerCode valid_code_1;
 	private ContainerCode valid_code_2;
@@ -148,6 +150,63 @@ public class ContainerTests {
 	public void checkToStringFalse() {
 		assertFalse(valid_code_1.toString() == "KOCU8090115");
 	}
+	
+	/*****************************************Freight Container Tests***************************************************/
+	
+	private GeneralGoodsContainer generalGoodsContainerTest;
+	private int grossWeight_1 = 20;
+	
+	/**
+	 * Test method for {@link asgn2Codes.Containers#GeneralGoodsContainer(ContainerCode code, Integer grossWeight)}.
+	 */
+	@Test(expected=Exception.class)
+	public void invalidGeneralGoodsContainerCode() throws InvalidContainerException{
+		generalGoodsContainerTest = new GeneralGoodsContainer(null, grossWeight_1);
+	}
+	
+	/**
+	 * Test method for {@link asgn2Codes.Containers#GeneralGoodsContainer(ContainerCode code, Integer grossWeight)}.
+	 */
+	@Test(expected=Exception.class)
+	public void invalidGeneralGoodsContainerGrossWeight() throws InvalidContainerException{
+		generalGoodsContainerTest = new GeneralGoodsContainer(valid_code_1, 3);
+	}
+	
+	/**
+	 * @throws InvalidContainerException 
+	 */
+	@Before
+	public void setUpGeneralGoodsContainerTest() throws InvalidContainerException {
+		generalGoodsContainerTest = new GeneralGoodsContainer(valid_code_1, grossWeight_1);
+		
+	}
+	
+	/**
+	 * Test method for {@link asgn2Codes.Containers#getCode()}.
+	 */
+	@Test
+	public void GeneralGoodsContainerGetCode() throws InvalidContainerException{
+		assertTrue(generalGoodsContainerTest.getCode().equals(valid_code_1));
+		
+	}
+	
+	/**
+	 * Test method for {@link asgn2Codes.Containers#getGrossWeight()}.
+	 */
+	@Test
+	public void GeneralGoodsContainerGetGrossWeight() throws InvalidContainerException{
+		assertTrue(generalGoodsContainerTest.getGrossWeight().equals(grossWeight_1));
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

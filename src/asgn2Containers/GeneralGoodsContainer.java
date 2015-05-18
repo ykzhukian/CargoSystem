@@ -24,7 +24,7 @@ public class GeneralGoodsContainer extends FreightContainer {
 	 */
 	public GeneralGoodsContainer(ContainerCode code, Integer grossWeight)
 	throws InvalidContainerException {
-		//Implementation Here
+		super(code, grossWeight);
 	}
 
 }

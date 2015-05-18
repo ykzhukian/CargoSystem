@@ -12,11 +12,6 @@ import asgn2Exceptions.InvalidCodeException;
  * "java.lang.String".
  */
 
-/*
- * Ryan is trying relentlessly
- * 
- */
-
 /**
  * This class provides cargo container codes in a format similar to that
  * prescribed by international standard ISO 6346.  (The only difference
@@ -83,7 +78,7 @@ import asgn2Exceptions.InvalidCodeException;
  * i.e., '<code>1</code>', thus confirming that container code 
  * <code>MSCU6639871</code> is valid.
  * 
- * @author CAB302 
+ * @author CAB302 Yunkai(Kian) Zhu n9253921
  * @version 1.0
  */ 
 public class ContainerCode {
@@ -100,6 +95,9 @@ public class ContainerCode {
 	 * of six digits; or if the Check Digit is incorrect.
 	 */
 	public ContainerCode(String code) throws InvalidCodeException {
+		if (code == null || code.isEmpty()) {
+			throw new InvalidCodeException("Missing code");
+		}
 		// get the length of code
 		int length = code.length();
 		// pattern to check the three upper-case letter
@@ -132,10 +130,6 @@ public class ContainerCode {
 		}
 		int sum = sumOfThreeUpperCase + 20 + sumOfDigits;
 		
-		if (code == null || code.isEmpty()) {
-			throw new InvalidCodeException("Missing code");
-		}
-
 		if (length != 11) {
 			throw new InvalidCodeException("the code is not eleven characters long");
 		} else if (!m1.find()) {

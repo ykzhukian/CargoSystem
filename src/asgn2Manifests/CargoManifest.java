@@ -45,7 +45,7 @@ import asgn2Exceptions.ManifestException;
  * crane, a container can be unloaded only if it is on top of
  * a stack.
  *  
- * @author CAB302
+ * @author CAB302 Yunkai (Kian) Zhu n9253921
  * @version 1.0
  */
 public class CargoManifest {

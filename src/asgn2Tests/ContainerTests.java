@@ -158,16 +158,16 @@ public class ContainerTests {
 	private GeneralGoodsContainer generalGoodsContainerTest;
 	private RefrigeratedContainer refrigeratedContainer;
 	private DangerousGoodsContainer dangerousGoodsContainer;
-	private int grossWeight_1 = 20;
-	private int temperature = 5;
-	private int category = 5;
+	private static final int GROSSWEIGHT_1 = 10;
+	private static final int TEMPERATURE = 5;
+	private static final int CATEGORY = 5;
 	
 	/**
 	 * Test method for {@link asgn2Cotainers.GeneralGoodsContainer#GeneralGoodsContainer(ContainerCode code, Integer grossWeight)}.
 	 */
 	@Test(expected=Exception.class)
 	public void invalidGeneralGoodsContainerCode() throws InvalidContainerException{
-		generalGoodsContainerTest = new GeneralGoodsContainer(null, grossWeight_1);
+		generalGoodsContainerTest = new GeneralGoodsContainer(null, GROSSWEIGHT_1);
 	}
 	
 	/**
@@ -183,7 +183,7 @@ public class ContainerTests {
 	 */
 	@Before
 	public void setUpGeneralGoodsContainerTest() throws InvalidContainerException {
-		generalGoodsContainerTest = new GeneralGoodsContainer(valid_code_1, grossWeight_1);
+		generalGoodsContainerTest = new GeneralGoodsContainer(valid_code_1, GROSSWEIGHT_1);
 	}
 	
 	/**
@@ -199,16 +199,16 @@ public class ContainerTests {
 	 */
 	@Test
 	public void GeneralGoodsContainerGetGrossWeight() throws InvalidContainerException{
-		assertTrue(generalGoodsContainerTest.getGrossWeight().equals(grossWeight_1));
+		assertTrue(generalGoodsContainerTest.getGrossWeight().equals(GROSSWEIGHT_1));
 	}
 	
 	// RefrigeratedContainer
 	/**
-	 * Test method for {@link asgn2Cotainers.RefrigeratedContainer#RefrigeratedContainer(ContainerCode code, Integer grossWeight, Integer temperature)}.
+	 * Test method for {@link asgn2Cotainers.RefrigeratedContainer#RefrigeratedContainer(ContainerCode code, Integer grossWeight, Integer TEMPERATURE)}.
 	 */
 	@Test(expected=Exception.class)
 	public void invalidRefrigeratedContainerGrossWeight() throws InvalidContainerException{
-		refrigeratedContainer = new RefrigeratedContainer(valid_code_1, 50, temperature);
+		refrigeratedContainer = new RefrigeratedContainer(valid_code_1, 50, TEMPERATURE);
 	}
 	
 	/**
@@ -216,7 +216,7 @@ public class ContainerTests {
 	 */
 	@Before
 	public void setUpRefrigeratedContainerTest() throws InvalidContainerException {
-		refrigeratedContainer = new RefrigeratedContainer(valid_code_1, grossWeight_1, temperature);
+		refrigeratedContainer = new RefrigeratedContainer(valid_code_1, GROSSWEIGHT_1, TEMPERATURE);
 	}
 	
 	/**
@@ -224,7 +224,7 @@ public class ContainerTests {
 	 */
 	@Test
 	public void RefrigeratedContainerGetTemperature() throws InvalidContainerException{
-		assertTrue(refrigeratedContainer.getTemperature().equals(temperature));
+		assertTrue(refrigeratedContainer.getTemperature().equals(TEMPERATURE));
 	}
 	
 	/**
@@ -238,19 +238,19 @@ public class ContainerTests {
 	
 	// DangerousGoodsContainer
 	/**
-	 * Test method for {@link asgn2Cotainers.DangerousGoodsContainer#DangerousGoodsContainer(ContainerCode code, Integer grossWeight, Integer category)}.
+	 * Test method for {@link asgn2Cotainers.DangerousGoodsContainer#DangerousGoodsContainer(ContainerCode code, Integer grossWeight, Integer CATEGORY)}.
 	 */
 	@Test(expected=Exception.class)
 	public void invalidDangerousGoodsContainerCategory() throws InvalidContainerException{
-		dangerousGoodsContainer = new DangerousGoodsContainer(valid_code_1, grossWeight_1, 10);
+		dangerousGoodsContainer = new DangerousGoodsContainer(valid_code_1, GROSSWEIGHT_1, 10);
 	}
 	
 	/**
-	 * Test method for {@link asgn2Cotainers.DangerousGoodsContainer#DangerousGoodsContainer(ContainerCode code, Integer grossWeight, Integer category)}.
+	 * Test method for {@link asgn2Cotainers.DangerousGoodsContainer#DangerousGoodsContainer(ContainerCode code, Integer grossWeight, Integer CATEGORY)}.
 	 */
 	@Test(expected=Exception.class)
 	public void invalidDangerousGoodsContainerGrossWeight() throws InvalidContainerException{
-		dangerousGoodsContainer = new DangerousGoodsContainer(valid_code_1, 50, category);
+		dangerousGoodsContainer = new DangerousGoodsContainer(valid_code_1, 50, CATEGORY);
 	}
 	
 	/**
@@ -258,7 +258,7 @@ public class ContainerTests {
 	 */
 	@Before
 	public void setUpDangerousGoodsContainerTest() throws InvalidContainerException {
-		dangerousGoodsContainer = new DangerousGoodsContainer(valid_code_1, grossWeight_1, category);
+		dangerousGoodsContainer = new DangerousGoodsContainer(valid_code_1, GROSSWEIGHT_1, CATEGORY);
 	}
 	
 	/**
@@ -266,7 +266,7 @@ public class ContainerTests {
 	 */
 	@Test
 	public void DangerousGoodsContainerGetCategory() throws InvalidContainerException{
-		assertTrue(dangerousGoodsContainer.getCategory().equals(category));
+		assertTrue(dangerousGoodsContainer.getCategory().equals(CATEGORY));
 	}
 	
 	

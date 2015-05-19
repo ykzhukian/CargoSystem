@@ -67,6 +67,7 @@ public class DangerousGoodsContainer extends FreightContainer {
 			throw new InvalidContainerException("Gategory invalid");
 		}
 		this.category = category;
+		super.type = "DangerousGoodsContainer";
 	}
 
 	/**

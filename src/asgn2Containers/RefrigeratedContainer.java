@@ -35,6 +35,7 @@ public class RefrigeratedContainer extends FreightContainer {
 	throws InvalidContainerException {
 		super(code, grossWeight);
 		this.temperature = temperature;
+		super.type = "RefrigeratedContainer";
 	}
 
 	/**

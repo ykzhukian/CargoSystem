@@ -25,6 +25,7 @@ public class GeneralGoodsContainer extends FreightContainer {
 	public GeneralGoodsContainer(ContainerCode code, Integer grossWeight)
 	throws InvalidContainerException {
 		super(code, grossWeight);
+		super.type = "GeneralGoodsContainer";
 	}
 
 }

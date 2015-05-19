@@ -18,6 +18,7 @@ public abstract class FreightContainer {
 	
 	ContainerCode code;
 	int grossWeight;
+	String type = "";
 	
 	/**
 	 * Constructs a freight container object with the given
@@ -59,6 +60,10 @@ public abstract class FreightContainer {
 	 */
 	public Integer getGrossWeight() {
 		return grossWeight;
+	}
+	
+	public String getType() {
+		return type;
 	}
 
 

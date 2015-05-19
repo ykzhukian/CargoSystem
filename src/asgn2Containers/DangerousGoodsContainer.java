@@ -47,6 +47,7 @@ import asgn2Exceptions.InvalidContainerException;
  */
 public class DangerousGoodsContainer extends FreightContainer {
 	
+	int category;
 
 	/**
 	 * Constructs a dangerous goods container object with the given
@@ -61,7 +62,11 @@ public class DangerousGoodsContainer extends FreightContainer {
 	 */
 	public DangerousGoodsContainer(ContainerCode code, Integer grossWeight, Integer category)
 	throws InvalidContainerException {
-		//Implementation Here
+		super(code, grossWeight);
+		if (category > 9 || category < 1) {
+			throw new InvalidContainerException("Gategory invalid");
+		}
+		this.category = category;
 	}
 
 	/**
@@ -70,6 +75,6 @@ public class DangerousGoodsContainer extends FreightContainer {
 	 * @return the category
 	 */
 	public Integer getCategory() {
-		//Implementation Here
+		return category;
 	}
 }

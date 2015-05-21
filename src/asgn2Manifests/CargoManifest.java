@@ -1,14 +1,9 @@
 package asgn2Manifests;
 
-import java.awt.List;
 import java.util.*;
 
 import asgn2Codes.ContainerCode;
-import asgn2Containers.DangerousGoodsContainer;
 import asgn2Containers.FreightContainer;
-import asgn2Containers.GeneralGoodsContainer;
-import asgn2Containers.RefrigeratedContainer;
-import asgn2Exceptions.InvalidContainerException;
 import asgn2Exceptions.ManifestException;
 
 /**
@@ -237,7 +232,6 @@ public class CargoManifest {
 	/* ***** toString methods added to support the GUI ***** */
 	
 	public String toString(ContainerCode toFind) {
-		//Some variables here are used and not declared. You can work it out 
 		String toReturn = "";
 		for (int i = 0; i < containers.size(); ++i) {
 			ArrayList<FreightContainer> currentStack = containers.get(i);

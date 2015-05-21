@@ -1,15 +1,10 @@
 package asgn2GUI;
 
-import java.awt.BorderLayout;
-import java.awt.HeadlessException;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import asgn2Codes.ContainerCode;
 import asgn2Containers.FreightContainer;
@@ -63,7 +58,10 @@ public class CargoTextFrame extends JFrame {
             disableButtons();
         } else {
             canvas = new CargoTextArea(cargo);
-            //implementation here 
+            //implementation here
+            canvas.updateDisplay();
+            enableButtons();
+            pnlDisplay.add(canvas);
         }
         redraw();
     }
@@ -73,6 +71,10 @@ public class CargoTextFrame extends JFrame {
      */
     private void enableButtons() {
     	//implementation here 
+    	btnNewManifest.setEnabled(true);
+    	btnFind.setEnabled(true);
+    	btnLoad.setEnabled(true);
+    	btnUnload.setEnabled(true);
     }
 
     /**
@@ -80,6 +82,10 @@ public class CargoTextFrame extends JFrame {
      */
     private void disableButtons() {
     	//implementation here 
+//    	btnNewManifest.setEnabled(false);
+    	btnFind.setEnabled(false);
+    	btnLoad.setEnabled(false);
+    	btnUnload.setEnabled(false);
     }
 
     /**
@@ -104,15 +110,50 @@ public class CargoTextFrame extends JFrame {
         });
         btnUnload = createButton("Unload", new ActionListener() {
         	//implementation here 
+        	@Override
+            public void actionPerformed(ActionEvent e) {
+                Runnable doRun = new Runnable() {
+                    @Override
+                    public void run() {
+                        CargoTextFrame.this.resetCanvas();
+                        CargoTextFrame.this.doUnload();
+                    }
+                };
+                SwingUtilities.invokeLater(doRun);
+            }
         });
         btnFind = createButton("Find", new ActionListener() {
         	//implementation here 
+        	@Override
+            public void actionPerformed(ActionEvent e) {
+                Runnable doRun = new Runnable() {
+                    @Override
+                    public void run() {
+                        CargoTextFrame.this.resetCanvas();
+                        CargoTextFrame.this.doFind();
+                    }
+                };
+                SwingUtilities.invokeLater(doRun);
+            }
         });
         btnNewManifest = createButton("New Manifest", new ActionListener() {
         	//implementation here 
+        	@Override
+            public void actionPerformed(ActionEvent e) {
+                Runnable doRun = new Runnable() {
+                    @Override
+                    public void run() {
+//                        CargoTextFrame.this.resetCanvas();
+                        setNewManifest();
+                    }
+                };
+                SwingUtilities.invokeLater(doRun);
+            }
         });
 
       //implementation here 
+        pnlControls = createControlPanel();
+        add(pnlControls, BorderLayout.SOUTH);
         repaint();
     }
 
@@ -123,6 +164,13 @@ public class CargoTextFrame extends JFrame {
      */
     private JPanel createControlPanel() {
     	//implementation here 
+    	JPanel controls = new JPanel();
+    	controls.add(btnNewManifest);
+    	controls.add(btnLoad);
+    	controls.add(btnUnload);
+    	controls.add(btnFind);
+    	
+    	return controls;
     }
 
     /**
@@ -143,14 +191,17 @@ public class CargoTextFrame extends JFrame {
      * Initiate the New Manifest dialog which sets the instance of CargoManifest to work with.
      */
     private void setNewManifest() {
-    	//implementation here 
+		//implementation here 
+    	CargoManifest newManifest = ManifestDialog.showDialog(this);
+//    	cargo = newManifest;
     }
-
+    
     /**
      * Turns off container highlighting when an action other than Find is initiated.
      */
     private void resetCanvas() {
     	//implementation here 
+    	canvas.updateDisplay();
     }
 
     /**
@@ -159,7 +210,7 @@ public class CargoTextFrame extends JFrame {
     private void doLoad() {
     	//implementation here 
         //Don't forget to redraw
-
+    	
     }
 
     /**

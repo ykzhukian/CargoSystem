@@ -1,8 +1,11 @@
 package asgn2GUI;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 
 import asgn2Codes.ContainerCode;
 import asgn2Manifests.CargoManifest;
@@ -44,6 +47,7 @@ public class CargoTextArea extends JTextArea {
      */
     public void setToFind(ContainerCode code) {
         //implementation here - don't forget to update the display
+    	setText(cargo.toString(code));
     }
 
     /**
@@ -52,5 +56,6 @@ public class CargoTextArea extends JTextArea {
      */
     public void updateDisplay() {
     	//implementation here
+    	setText(cargo.toString(null));
     }
 }

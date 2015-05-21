@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -41,6 +42,9 @@ public abstract class AbstractDialog extends JDialog implements ActionListener {
         JPanel pnlContent = createContentPanel();
 
         //Stuff goes here 
+        setSize(width, height);
+        this.add(pnlDialogControls, BorderLayout.SOUTH);
+        add(pnlContent, BorderLayout.NORTH);
     }
 
     /**
@@ -57,7 +61,13 @@ public abstract class AbstractDialog extends JDialog implements ActionListener {
      * @return JPanel with OK and Cancel buttons.
      */
     private JPanel createDialogControls() {
-    	//implementation here    
+    	//implementation here
+    	JPanel controls = new JPanel();
+    	btnOK = createButton("btnOK");
+        btnCancel = createButton("btnCancel");
+        controls.add(btnOK);
+        controls.add(btnCancel);
+    	return controls;
     }
 
     /**
@@ -136,14 +146,14 @@ public abstract class AbstractDialog extends JDialog implements ActionListener {
     /**
      * Disables the OK button
      */
-    protected void disableSubmit() {
-    	//implementation here    
+    protected void disableSubmit() {  
+    	btnOK.setEnabled(false);
     }
 
     /**
      * Enables the OK button
      */
-    protected void enableSubmit() {
-    	//implementation here    
+    protected void enableSubmit() {   
+    	btnOK.setEnabled(true);
     }
 }

@@ -58,7 +58,7 @@ public class ManifestDialog extends AbstractDialog {
         
         JPanel toReturn = new JPanel();
         toReturn.setLayout(new GridBagLayout());
-       
+        
         //Implementation here
         JLabel numStacks = new JLabel("Stacks Number:");
         JLabel maxHeight = new JLabel("Maximum Height:");
@@ -71,6 +71,7 @@ public class ManifestDialog extends AbstractDialog {
         addToPanel(toReturn, txtNumStacks, constraints, 15, 1, 8, 1);
         addToPanel(toReturn, txtMaxHeight, constraints, 15, 3, 8, 1);
         addToPanel(toReturn, txtMaxWeight, constraints, 15, 5, 8, 1);
+        
         return toReturn;
     }
 
@@ -110,11 +111,7 @@ public class ManifestDialog extends AbstractDialog {
     public static CargoManifest showDialog(JFrame parent) {
         //Implementation again
     	ManifestDialog manifestDialog = new ManifestDialog(parent);
-    	manifestDialog.setVisible(true);
-//    	while (!manifestDialog.dialogDone()) {
-//    		manifestDialog.setVisible(true);
-//    	} 
-//    	manifestDialog.setVisible(false);
+    	manifestDialog.setVisible(true); 
     	return manifestDialog.manifest;
     }
 }

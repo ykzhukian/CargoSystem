@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import asgn2Codes.ContainerCode;
 import asgn2Containers.FreightContainer;
+import asgn2Exceptions.ManifestException;
 import asgn2Manifests.CargoManifest;
 
 /**
@@ -41,7 +42,7 @@ public class CargoTextFrame extends JFrame {
     public CargoTextFrame(String frameTitle) throws HeadlessException {
         super(frameTitle);
         constructorHelper();
-        disableButtons();
+//        disableButtons();
         setVisible(true);
     }
 
@@ -101,7 +102,7 @@ public class CargoTextFrame extends JFrame {
                 Runnable doRun = new Runnable() {
                     @Override
                     public void run() {
-                        CargoTextFrame.this.resetCanvas();
+//                        CargoTextFrame.this.resetCanvas();
                         CargoTextFrame.this.doLoad();
                     }
                 };
@@ -115,7 +116,7 @@ public class CargoTextFrame extends JFrame {
                 Runnable doRun = new Runnable() {
                     @Override
                     public void run() {
-                        CargoTextFrame.this.resetCanvas();
+//                        CargoTextFrame.this.resetCanvas();
                         CargoTextFrame.this.doUnload();
                     }
                 };
@@ -129,7 +130,7 @@ public class CargoTextFrame extends JFrame {
                 Runnable doRun = new Runnable() {
                     @Override
                     public void run() {
-                        CargoTextFrame.this.resetCanvas();
+//                        CargoTextFrame.this.resetCanvas();
                         CargoTextFrame.this.doFind();
                     }
                 };
@@ -193,7 +194,11 @@ public class CargoTextFrame extends JFrame {
     private void setNewManifest() {
 		//implementation here 
     	CargoManifest newManifest = ManifestDialog.showDialog(this);
-//    	cargo = newManifest;
+    	cargo = newManifest;
+    	if ( cargo.toString() != null ) {
+    		enableButtons();
+    	}
+    	System.out.println(cargo.toString());
     }
     
     /**
@@ -201,7 +206,7 @@ public class CargoTextFrame extends JFrame {
      */
     private void resetCanvas() {
     	//implementation here 
-    	canvas.updateDisplay();
+    	setCanvas(cargo);
     }
 
     /**
@@ -210,7 +215,15 @@ public class CargoTextFrame extends JFrame {
     private void doLoad() {
     	//implementation here 
         //Don't forget to redraw
-    	
+    	FreightContainer newContainer = LoadContainerDialog.showDialog(this);
+//    	try {
+//			cargo.loadContainer(newContainer);
+//		} catch (ManifestException e) {
+//			e.printStackTrace();
+//		}
+
+//    	System.out.println(newContainer.getCode().toString() + newContainer.getType());
+//    	redraw();
     }
 
     /**
@@ -226,6 +239,7 @@ public class CargoTextFrame extends JFrame {
      */
     private void doFind() {
     	//implementation here 
+    	ContainerCode newContainerCode = ContainerCodeDialog.showDialog(this);
     }
 
     /**

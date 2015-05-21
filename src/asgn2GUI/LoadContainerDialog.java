@@ -3,6 +3,7 @@ package asgn2GUI;
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -52,7 +53,6 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
         super(parent, "Container Information", WIDTH, HEIGHT);
         setResizable(false);
         setName("Container Information");
-
     }
 
     /**
@@ -100,7 +100,7 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
         cbType.setEditable(false);
         cbType.addItemListener(this);
         cbType.setName("Container Type");
-      //Don't modify - END 
+        //Don't modify - END 
 
         txtWeight = createTextField(5, "Container Weight");
         txtCode = createTextField(11, "Container Code");
@@ -142,8 +142,15 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
         JPanel cardRefrigeratedGoods = new JPanel();
         cardRefrigeratedGoods.setLayout(new GridBagLayout());
         txtTemperature = createTextField(5, "Temperature");
-
+        
         //Finish here 
+        pnlCards = new JPanel();
+        addToPanel(cardDangerousGoods, new JLabel("Goods Category:"), constraints, 0, 0, 2, 1);
+        addToPanel(cardRefrigeratedGoods, new JLabel("Temperature:"), constraints, 0, 2, 2, 1);
+        addToPanel(cardDangerousGoods, txtDangerousGoodsType, constraints, 3, 0, 2, 1);
+        addToPanel(cardRefrigeratedGoods, txtTemperature, constraints, 3, 2, 2, 1);
+        pnlCards.add(cardDangerousGoods);
+        pnlCards.add(cardRefrigeratedGoods);
     }
 
     /**
@@ -172,6 +179,9 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
      */
     public static FreightContainer showDialog(JFrame parent) {
        //Implementation here. 
+    	LoadContainerDialog loadContainerDialog = new LoadContainerDialog(parent);
+    	loadContainerDialog.setVisible(true);
+    	return loadContainerDialog.container;
     }
 
 }

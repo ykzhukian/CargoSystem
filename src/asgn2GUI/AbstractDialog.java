@@ -63,8 +63,8 @@ public abstract class AbstractDialog extends JDialog implements ActionListener {
     private JPanel createDialogControls() {
     	//implementation here
     	JPanel controls = new JPanel();
-    	btnOK = createButton("btnOK");
-        btnCancel = createButton("btnCancel");
+    	btnOK = createButton("OK");
+        btnCancel = createButton("Cancel");
         controls.add(btnOK);
         controls.add(btnCancel);
     	return controls;

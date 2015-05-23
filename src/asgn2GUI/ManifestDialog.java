@@ -92,6 +92,7 @@ public class ManifestDialog extends AbstractDialog {
     	String numStacks = txtNumStacks.getText();
         String maxHeight = txtMaxHeight.getText();
         String maxWeight = txtMaxWeight.getText();
+
         try {
 			manifest = new CargoManifest(Integer.parseInt(numStacks), Integer.parseInt(maxHeight), Integer.parseInt(maxWeight));
 			return true;

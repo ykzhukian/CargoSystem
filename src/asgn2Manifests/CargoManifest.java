@@ -91,7 +91,7 @@ public class CargoManifest {
 		currentWeight = 0;
 		containers = new ArrayList<ArrayList<FreightContainer>>();
 		stackType = new HashMap<Integer, String>();
-		stacks = new HashMap<Integer, ArrayList<FreightContainer>>();
+//		stacks = new HashMap<Integer, ArrayList<FreightContainer>>();
 		codes = new HashMap<String, Integer>();
 		
 		for (int i = 0; i < numStacks; i++) {
@@ -114,17 +114,17 @@ public class CargoManifest {
 			throw new ManifestException("Exceed the ship's weight limit");
 		}
 		
+		if (codes.containsKey(newContainer.getCode().toString())) {
+			throw new ManifestException("A duplicate code has been found");
+		}
+		
 		for (int i = 0; i < numStacks; i++) {
 			if (stackType.get(i) != null) {
 				if (stackType.get(i) == newContainer.getType()) {
 					if (containers.get(i).size() < maxHeight) {
-						if (!containers.get(i).contains(newContainer.getCode().toString())) {
-							containers.get(i).add(newContainer);
-							codes.put(newContainer.getCode().toString(), i);
-							break;
-						} else { // if there's a same code already
-							throw new ManifestException("A duplicate code has been found");
-						}
+						containers.get(i).add(newContainer);
+						codes.put(newContainer.getCode().toString(), i);
+						break;
 					} else if (i == numStacks - 1) { // if there's no more space
 						throw new ManifestException("No suitable space can be found for this container");
 					}
@@ -134,7 +134,7 @@ public class CargoManifest {
 			} else {
 				stackType.put(i, newContainer.getType());
 				containers.get(i).add(newContainer);
-				stacks.put(i, containers.get(i));
+//				stacks.put(i, containers.get(i));
 				codes.put(newContainer.getCode().toString(), i);
 				break;
 			}
@@ -159,8 +159,12 @@ public class CargoManifest {
 		}
 		int stackNumber = codes.get(containerId.toString());
 		FreightContainer topContainer = containers.get(stackNumber).get(containers.get(stackNumber).size() - 1);
-		if (topContainer.getCode() == containerId) {
+		if (topContainer.getCode().toString().equals(containerId.toString())) {
 			containers.get(stackNumber).remove(containers.get(stackNumber).size() - 1);
+			if (containers.get(stackNumber).size() == 0) {
+				stackType.remove(codes.get(containerId.toString()));
+			}
+			codes.remove(containerId.toString());
 		} else {
 			throw new ManifestException("The container is not on the top of that stack");
 		}
@@ -237,7 +241,7 @@ public class CargoManifest {
 			ArrayList<FreightContainer> currentStack = containers.get(i);
 			toReturn += "|";
 			for (int j = 0; j < currentStack.size(); ++j) {
-				if (toFind != null && currentStack.get(j).getCode().equals(toFind))
+				if (toFind != null && currentStack.get(j).getCode().toString().equals(toFind.toString()))
 					toReturn += "|*" + currentStack.get(j).getCode().toString() + "*|";
 				else
 					toReturn += "| " + currentStack.get(j).getCode().toString() + " |";

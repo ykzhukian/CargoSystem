@@ -63,7 +63,7 @@ public class DangerousGoodsContainer extends FreightContainer {
 	public DangerousGoodsContainer(ContainerCode code, Integer grossWeight, Integer category)
 	throws InvalidContainerException {
 		super(code, grossWeight);
-		if (category > 9 || category < 1) {
+		if (category > 9 || category < 1 || category == null) {
 			throw new InvalidContainerException("Gategory invalid");
 		}
 		this.category = category;

@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import asgn2Codes.ContainerCode;
 import asgn2Containers.FreightContainer;
+import asgn2Exceptions.InvalidCodeException;
 import asgn2Exceptions.ManifestException;
 import asgn2Manifests.CargoManifest;
 
@@ -42,8 +43,11 @@ public class CargoTextFrame extends JFrame {
     public CargoTextFrame(String frameTitle) throws HeadlessException {
         super(frameTitle);
         constructorHelper();
-//        disableButtons();
+        disableButtons();
         setVisible(true);
+        setLayout(new BorderLayout());
+
+        
     }
 
     /**
@@ -54,17 +58,20 @@ public class CargoTextFrame extends JFrame {
     private void setCanvas(CargoManifest cargo) {
         if (canvas != null) {
             pnlDisplay.remove(canvas);
+            pnlDisplay.repaint();
         }
         if (cargo == null) {
             disableButtons();
         } else {
             canvas = new CargoTextArea(cargo);
             //implementation here
-            canvas.updateDisplay();
-            enableButtons();
+            canvas.setSize(500, 250);
+            pnlDisplay = new JPanel();
             pnlDisplay.add(canvas);
-        }
-        redraw();
+            add(pnlDisplay, BorderLayout.WEST);
+            enableButtons();
+            canvas.updateDisplay();
+        } 
     }
 
     /**
@@ -102,8 +109,9 @@ public class CargoTextFrame extends JFrame {
                 Runnable doRun = new Runnable() {
                     @Override
                     public void run() {
-//                        CargoTextFrame.this.resetCanvas();
+                    	resetCanvas();
                         CargoTextFrame.this.doLoad();
+                    	redraw();
                     }
                 };
                 SwingUtilities.invokeLater(doRun);
@@ -116,8 +124,9 @@ public class CargoTextFrame extends JFrame {
                 Runnable doRun = new Runnable() {
                     @Override
                     public void run() {
-//                        CargoTextFrame.this.resetCanvas();
+                    	resetCanvas();
                         CargoTextFrame.this.doUnload();
+                    	redraw();
                     }
                 };
                 SwingUtilities.invokeLater(doRun);
@@ -130,7 +139,7 @@ public class CargoTextFrame extends JFrame {
                 Runnable doRun = new Runnable() {
                     @Override
                     public void run() {
-//                        CargoTextFrame.this.resetCanvas();
+                    	resetCanvas();
                         CargoTextFrame.this.doFind();
                     }
                 };
@@ -144,8 +153,10 @@ public class CargoTextFrame extends JFrame {
                 Runnable doRun = new Runnable() {
                     @Override
                     public void run() {
-//                        CargoTextFrame.this.resetCanvas();
-                        setNewManifest();
+                    	CargoTextFrame.this.setNewManifest();
+                        CargoTextFrame.this.setCanvas(cargo);
+                        resetCanvas();
+                        redraw();
                     }
                 };
                 SwingUtilities.invokeLater(doRun);
@@ -154,6 +165,7 @@ public class CargoTextFrame extends JFrame {
 
       //implementation here 
         pnlControls = createControlPanel();
+        pnlControls.setLayout(new FlowLayout());
         add(pnlControls, BorderLayout.SOUTH);
         repaint();
     }
@@ -193,12 +205,14 @@ public class CargoTextFrame extends JFrame {
      */
     private void setNewManifest() {
 		//implementation here 
-    	CargoManifest newManifest = ManifestDialog.showDialog(this);
-    	cargo = newManifest;
-    	if ( cargo.toString() != null ) {
-    		enableButtons();
-    	}
-    	System.out.println(cargo.toString());
+    	try {
+    		CargoManifest newManifest = ManifestDialog.showDialog(this);
+        	cargo = newManifest;
+        	if ( cargo.toString() != null ) {
+        		enableButtons();
+        	}
+		} catch (Exception e) { }
+    	
     }
     
     /**
@@ -206,7 +220,7 @@ public class CargoTextFrame extends JFrame {
      */
     private void resetCanvas() {
     	//implementation here 
-    	setCanvas(cargo);
+    	canvas.setToFind(null);
     }
 
     /**
@@ -215,15 +229,16 @@ public class CargoTextFrame extends JFrame {
     private void doLoad() {
     	//implementation here 
         //Don't forget to redraw
-    	FreightContainer newContainer = LoadContainerDialog.showDialog(this);
-//    	try {
-//			cargo.loadContainer(newContainer);
-//		} catch (ManifestException e) {
-//			e.printStackTrace();
-//		}
-
-//    	System.out.println(newContainer.getCode().toString() + newContainer.getType());
-//    	redraw();
+    	
+    	try {
+    		FreightContainer newContainer = LoadContainerDialog.showDialog(this);
+    		try {
+    			cargo.loadContainer(newContainer);
+    		} catch (ManifestException e) {
+    			JOptionPane.showMessageDialog(this, e.getMessage());
+    		}
+		} catch (Exception e) { }
+    	
     }
 
     /**
@@ -232,6 +247,15 @@ public class CargoTextFrame extends JFrame {
     private void doUnload() {
     	//implementation here 
         //Don't forget to redraw
+    	try {
+    		ContainerCode newContainerCode = ContainerCodeDialog.showDialog(this);
+        	try {
+    			cargo.unloadContainer(newContainerCode);
+    		} catch (ManifestException e) {
+    			JOptionPane.showMessageDialog(this, e.getMessage());
+    		}
+		} catch (Exception e) { }
+    	
     }
 
     /**
@@ -239,7 +263,11 @@ public class CargoTextFrame extends JFrame {
      */
     private void doFind() {
     	//implementation here 
-    	ContainerCode newContainerCode = ContainerCodeDialog.showDialog(this);
+    	try {
+        	ContainerCode newContainerCode = ContainerCodeDialog.showDialog(this);
+    		canvas.setToFind(newContainerCode);
+		} catch (Exception e) { }
+
     }
 
     /**
@@ -249,5 +277,6 @@ public class CargoTextFrame extends JFrame {
      */
     private void redraw() {
     	//implementation here 
+    	canvas.updateDisplay();
     }
 }

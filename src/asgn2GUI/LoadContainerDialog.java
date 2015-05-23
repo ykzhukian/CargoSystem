@@ -21,6 +21,8 @@ import asgn2Containers.FreightContainer;
 import asgn2Containers.GeneralGoodsContainer;
 import asgn2Containers.RefrigeratedContainer;
 import asgn2Exceptions.CargoException;
+import asgn2Exceptions.InvalidCodeException;
+import asgn2Exceptions.InvalidContainerException;
 
 /**
  * Creates a dialog box allowing the user to enter information required for loading a container.
@@ -43,6 +45,8 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
     private static String comboBoxItems[] = new String[] { "Dangerous Goods", "General Goods", "Refrigerated Goods" };
 
     private FreightContainer container;
+    private int type = 0; // 0=Dangerous 1=General 2=Refrigerated Goods
+    private String errorMessage;
 
     /**
      * Constructs a modal dialog box that gathers information required for loading a container.
@@ -132,7 +136,7 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
         // Defaults
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.EAST;
-        constraints.weightx = 45;
+        constraints.weightx = 100;
         constraints.weighty = 100;
 
         JPanel cardDangerousGoods = new JPanel();
@@ -145,12 +149,17 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
         
         //Finish here 
         pnlCards = new JPanel();
+        pnlCards.setLayout(new CardLayout());
         addToPanel(cardDangerousGoods, new JLabel("Goods Category:"), constraints, 0, 0, 2, 1);
-        addToPanel(cardRefrigeratedGoods, new JLabel("Temperature:"), constraints, 0, 2, 2, 1);
+        addToPanel(cardRefrigeratedGoods, new JLabel("Temperature:"), constraints, 0, 0, 2, 1);
+        constraints.anchor = GridBagConstraints.WEST;
         addToPanel(cardDangerousGoods, txtDangerousGoodsType, constraints, 3, 0, 2, 1);
-        addToPanel(cardRefrigeratedGoods, txtTemperature, constraints, 3, 2, 2, 1);
-        pnlCards.add(cardDangerousGoods);
-        pnlCards.add(cardRefrigeratedGoods);
+        addToPanel(cardRefrigeratedGoods, txtTemperature, constraints, 3, 0, 2, 1);
+        pnlCards.add(cardDangerousGoods, "Dangerous Goods");
+        pnlCards.add(cardRefrigeratedGoods, "Refrigerated Goods");
+        txtTemperature.setVisible(false);
+        txtDangerousGoodsType.setVisible(true);
+        
     }
 
     /**
@@ -160,6 +169,29 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
     public void itemStateChanged(ItemEvent event) {
         CardLayout cl = (CardLayout) pnlCards.getLayout();
         //Finish here - show cards and set text fields
+        pnlCards.setVisible(true);
+    	cl.show(pnlCards, (String)event.getItem());
+    	// avoid calling itemStateChanged twice
+        switch (event.getStateChange()) {
+	        case ItemEvent.DESELECTED:
+	            break;
+	        case ItemEvent.SELECTED:
+	        	if ((String)event.getItem() == "Refrigerated Goods") {
+	        		txtDangerousGoodsType.setVisible(false);
+	        		txtTemperature.setVisible(true);
+	        		type = 2;
+	        	} else if ((String)event.getItem() == "Dangerous Goods") {
+	        		txtTemperature.setVisible(false);
+	        		txtDangerousGoodsType.setVisible(true);
+	        		type = 0;
+	        	} else {
+	        		type = 1;
+	        		pnlCards.setVisible(false);
+	        	}
+	        	
+	        	System.out.println((String)event.getItem());
+	            break;
+        }
     }
 
     /**
@@ -169,6 +201,53 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
     protected boolean dialogDone() {
         //Implementation here - create the container and set parameters, 
     	//But handle the exceptions properly 
+    	ContainerCode newCode = null;
+		try {
+			newCode = new ContainerCode(txtCode.getText());
+		} catch (InvalidCodeException e) {
+			errorMessage = e.getMessage();
+			JOptionPane.showMessageDialog(this, errorMessage);
+			return false;
+		}
+    	if (type == 0) {
+    		try {
+				container = new DangerousGoodsContainer(newCode, Integer.parseInt(txtWeight.getText()), Integer.parseInt(txtDangerousGoodsType.getText()));
+			} catch (NumberFormatException e) {
+				errorMessage = e.getMessage();
+				JOptionPane.showMessageDialog(this, errorMessage);
+				return false;
+			} catch (InvalidContainerException e) {
+				errorMessage = e.getMessage();
+				JOptionPane.showMessageDialog(this, errorMessage);
+				return false;
+			}
+    	} else if (type == 1) {
+    		try {
+				container = new GeneralGoodsContainer(newCode, Integer.parseInt(txtWeight.getText()));
+			} catch (NumberFormatException e) {
+				errorMessage = e.getMessage();
+				JOptionPane.showMessageDialog(this, errorMessage);
+				return false;
+			} catch (InvalidContainerException e) {
+				errorMessage = e.getMessage();
+				JOptionPane.showMessageDialog(this, errorMessage);
+				return false;
+			}
+    	} else if (type == 2) {
+    		try {
+				container = new RefrigeratedContainer(newCode, Integer.parseInt(txtWeight.getText()), Integer.parseInt(txtTemperature.getText()));
+			} catch (NumberFormatException e) {
+				errorMessage = e.getMessage();
+				JOptionPane.showMessageDialog(this, errorMessage);
+				return false;
+			} catch (InvalidContainerException e) {
+				errorMessage = e.getMessage();
+				JOptionPane.showMessageDialog(this, errorMessage);
+				return false;
+			}
+    	}
+    	
+    	return true;
     }
 
     /**

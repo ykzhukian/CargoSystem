@@ -17,7 +17,7 @@ public class InvalidContainerException extends CargoException {
 	 * @param message an informative message describing the problem encountered
 	 */
 	public InvalidContainerException(String message) {
-		super("InvalidContainer Exception " + message);
+		super("InvalidContainer Exception: " + message);
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 
 import asgn2Codes.ContainerCode;
+import asgn2Exceptions.InvalidCodeException;
 import asgn2Manifests.CargoManifest;
 
 /**
@@ -44,10 +45,12 @@ public class CargoTextArea extends JTextArea {
      * Highlights a container.
      *
      * @param code ContainerCode to highlight.
+     * @throws InvalidCodeException 
      */
     public void setToFind(ContainerCode code) {
         //implementation here - don't forget to update the display
-    	setText(cargo.toString(code));
+    	toFind = code;
+    	updateDisplay();
     }
 
     /**
@@ -56,6 +59,8 @@ public class CargoTextArea extends JTextArea {
      */
     public void updateDisplay() {
     	//implementation here
-    	setText(cargo.toString(null));
+    	setText(cargo.toString(toFind));
+    	System.out.println(cargo.toString(toFind));
+    	
     }
 }

@@ -101,28 +101,28 @@ public class ContainerCode {
 		// get the length of code
 		int length = code.length();
 		if (length != 11) {
-			throw new InvalidCodeException("the code is not eleven characters long");
+			throw new InvalidCodeException("The code is not eleven characters long");
 		}
 		// pattern to check the three upper-case letter
 		String pattern1 = "[A-Z]{3}[A-Z0-9]*";
 		Pattern p1 = Pattern.compile(pattern1);
 		Matcher m1 = p1.matcher(code);
 		if (!m1.find()) {
-			throw new InvalidCodeException("the code does not have three upper-case letter");
+			throw new InvalidCodeException("The code does not have three upper-case letter");
 		}
 		// pattern to check the Category Identifier 'U'
 		String pattern2 = "[A-Z]{3}U[A-Z0-9]*";
 		Pattern p2 = Pattern.compile(pattern2);
 		Matcher m2 = p2.matcher(code);
 		if (!m2.find()) {
-			throw new InvalidCodeException("the code does not have Indentifier 'U'");
+			throw new InvalidCodeException("The code does not have Indentifier 'U'");
 		} 
 		// pattern to check if the Serial Number consists of six digits
 		String pattern3 = "[A-Z]{3}U[0-9]{6}[0-9]*";
 		Pattern p3 = Pattern.compile(pattern3);
 		Matcher m3 = p3.matcher(code);
 		if (!m3.find()) {
-			throw new InvalidCodeException("the code does not consist of six digits");
+			throw new InvalidCodeException("The code does not consist of six digits");
 		}
 		// check the check digit
 		char[] codeArray = code.toCharArray();
@@ -143,7 +143,7 @@ public class ContainerCode {
 		int sum = sumOfThreeUpperCase + 20 + sumOfDigits;
 		
 		if (checkDigit != sum % 10) {
-			throw new InvalidCodeException("the Check Digit is incorrect");
+			throw new InvalidCodeException("The Check Digit is incorrect");
 		}
 		
 		this.code = code;

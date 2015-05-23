@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 /**
  * Provides base class for dialog boxes used for data entry.
  *
- * @author CAB302
+ * @author CAB302 Yunkai (Kian) Zhu n9253921
  */
 public abstract class AbstractDialog extends JDialog implements ActionListener {
 

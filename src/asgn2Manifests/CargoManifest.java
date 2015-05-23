@@ -48,10 +48,13 @@ public class CargoManifest {
 	int numStacks;
 	int maxHeight;
 	int maxWeight;
-	ArrayList<ArrayList<FreightContainer>> containers;
+	// used to store all the containers loaded group by stack [[contain_1, contain_2], [contain_3], ...]
+	ArrayList<ArrayList<FreightContainer>> containers; 
+	// used to store the type of each stack which has container(s), type will clear when it has no container
 	HashMap<Integer, String> stackType;
-	HashMap<Integer, ArrayList<FreightContainer>> stacks;
+	// used to store the codes of loaded containers
 	HashMap<String, Integer> codes;
+	// used to store current weight
 	int currentWeight;
 	
 
@@ -91,11 +94,10 @@ public class CargoManifest {
 		currentWeight = 0;
 		containers = new ArrayList<ArrayList<FreightContainer>>();
 		stackType = new HashMap<Integer, String>();
-//		stacks = new HashMap<Integer, ArrayList<FreightContainer>>();
 		codes = new HashMap<String, Integer>();
 		
 		for (int i = 0; i < numStacks; i++) {
-			containers.add(new ArrayList<FreightContainer>());
+			containers.add(new ArrayList<FreightContainer>()); // add empty list of element, can be used by get index later when uploading
 		}
 	}
 
@@ -132,10 +134,9 @@ public class CargoManifest {
 					throw new ManifestException("No suitable space can be found for this container");
 				}
 			} else {
-				stackType.put(i, newContainer.getType());
-				containers.get(i).add(newContainer);
-//				stacks.put(i, containers.get(i));
-				codes.put(newContainer.getCode().toString(), i);
+				stackType.put(i, newContainer.getType()); // create a stack type to that stack
+				containers.get(i).add(newContainer);	// add container to that stack
+				codes.put(newContainer.getCode().toString(), i); // add code to local
 				break;
 			}
 			
@@ -160,9 +161,9 @@ public class CargoManifest {
 		int stackNumber = codes.get(containerId.toString());
 		FreightContainer topContainer = containers.get(stackNumber).get(containers.get(stackNumber).size() - 1);
 		if (topContainer.getCode().toString().equals(containerId.toString())) {
-			containers.get(stackNumber).remove(containers.get(stackNumber).size() - 1);
+			containers.get(stackNumber).remove(containers.get(stackNumber).size() - 1);	// remove it from containers
 			if (containers.get(stackNumber).size() == 0) {
-				stackType.remove(codes.get(containerId.toString()));
+				stackType.remove(codes.get(containerId.toString()));		// if it is the last container, remove the type of that stack
 			}
 			codes.remove(containerId.toString());
 		} else {

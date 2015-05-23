@@ -15,7 +15,7 @@ import asgn2Manifests.CargoManifest;
 /**
  * The main window for the Cargo Manifest Text application.
  *
- * @author CAB302
+ * @author CAB302 Yunkai (Kian) Zhu n9253921
  */
 public class CargoTextFrame extends JFrame {
 

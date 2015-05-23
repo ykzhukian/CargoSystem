@@ -3,7 +3,7 @@ package asgn2GUI;
 /**
  * Main programme for the CargoFrame 
  *
- * @author CAB302
+ * @author CAB302 
  */
 public class ManifestManager {
 

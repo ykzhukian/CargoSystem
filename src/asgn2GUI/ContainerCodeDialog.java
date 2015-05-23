@@ -29,7 +29,7 @@ import asgn2Exceptions.InvalidCodeException;
 /**
  * Creates a dialog box allowing the user to enter a ContainerCode.
  *
- * @author CAB302
+ * @author CAB302 Yunkai (Kian) Zhu n9253921
  */
 public class ContainerCodeDialog extends AbstractDialog {
 
@@ -102,10 +102,8 @@ public class ContainerCodeDialog extends AbstractDialog {
 					lblErrorInfo.setText("No Error");
 					errorMessage = null;
 				} catch (InvalidCodeException e) {
-//					e.printStackTrace();
 					errorMessage = e.getMessage();
 					lblErrorInfo.setText(errorMessage);
-//					JOptionPane.showMessageDialog(txtCode, e.toString());
 					System.out.println(e.getMessage());
 				}
             }

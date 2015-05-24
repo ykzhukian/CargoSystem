@@ -41,7 +41,7 @@ public abstract class AbstractDialog extends JDialog implements ActionListener {
         JPanel pnlDialogControls = createDialogControls();
         JPanel pnlContent = createContentPanel();
 
-        //Stuff goes here 
+        // Kian
         setSize(width, height);
         this.add(pnlDialogControls, BorderLayout.SOUTH);
         add(pnlContent, BorderLayout.NORTH);
@@ -61,7 +61,7 @@ public abstract class AbstractDialog extends JDialog implements ActionListener {
      * @return JPanel with OK and Cancel buttons.
      */
     private JPanel createDialogControls() {
-    	//implementation here
+    	// Kian
     	JPanel controls = new JPanel();
     	btnOK = createButton("OK");
         btnCancel = createButton("Cancel");

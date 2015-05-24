@@ -48,7 +48,7 @@ public class CargoCanvas extends JPanel {
      * @param code ContainerCode to highlight.
      */
     public void setToFind(ContainerCode code) {
-        //implementation here - don't forget to repaint
+    	// Kian
     	toFind = code;
     }
 
@@ -59,7 +59,7 @@ public class CargoCanvas extends JPanel {
      */
     @Override
     public void paint(Graphics g) {
-    	//Implementation here 
+    	//Kian 
     	super.paintComponents(g);
     	
     	g.setColor(Color.DARK_GRAY);
@@ -114,7 +114,7 @@ public class CargoCanvas extends JPanel {
      * @param y The y location for the Rectangle.
      */
     private void drawContainer(Graphics g, FreightContainer container, int x, int y) {
-    	//Implementation here 
+    	//Kian 
     	//Feel free to use some other method structure here, but this is the basis for the demo. 
     	//Obviously you need the graphics context and container as parameters. 
     	//But you can also use images if you wish. 

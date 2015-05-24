@@ -59,7 +59,7 @@ public class ManifestDialog extends AbstractDialog {
         JPanel toReturn = new JPanel();
         toReturn.setLayout(new GridBagLayout());
         
-        //Implementation here
+        //Kian
         JLabel numStacks = new JLabel("Stacks Number:");
         JLabel maxHeight = new JLabel("Maximum Height:");
         JLabel maxWeight = new JLabel("Maximum Weight:");
@@ -87,20 +87,44 @@ public class ManifestDialog extends AbstractDialog {
 
     @Override
     protected boolean dialogDone() {
-        //Implementation here 
+    	//Kian
     	//Parameters and building a new manifest, all the while handling exceptions 
     	String numStacks = txtNumStacks.getText();
         String maxHeight = txtMaxHeight.getText();
         String maxWeight = txtMaxWeight.getText();
-
         try {
-			manifest = new CargoManifest(Integer.parseInt(numStacks), Integer.parseInt(maxHeight), Integer.parseInt(maxWeight));
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		} catch (ManifestException e) {
-			return false;
-		}
+            Integer.parseInt(numStacks);
+         } catch (NumberFormatException e) {
+        	JOptionPane.showMessageDialog(this, "Invalid Stack Number Type");
+            return false;
+        }
+        try {
+            Integer.parseInt(maxHeight);
+         } catch (NumberFormatException e) {
+        	JOptionPane.showMessageDialog(this, "Invalid Max Height Type");
+            return false;
+        }
+        try {
+            Integer.parseInt(maxWeight);
+         } catch (NumberFormatException e) {
+        	JOptionPane.showMessageDialog(this, "Invalid Max Weight Type");
+            return false;
+        }
+        if (txtNumStacks.getText() != null && txtMaxHeight.getText() != null && txtMaxWeight.getText() != null) {
+	        try {
+				manifest = new CargoManifest(Integer.parseInt(numStacks), Integer.parseInt(maxHeight), Integer.parseInt(maxWeight));
+				return true;
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(this, "Invalid Input Type");
+				return false;
+			} catch (ManifestException e) {
+				return false;
+			}
+        } else {
+        	return false;
+        }
+
+        
     }
 
     /**
@@ -110,7 +134,7 @@ public class ManifestDialog extends AbstractDialog {
      * @return a <code>CargoManifest</code> instance with valid values.
      */
     public static CargoManifest showDialog(JFrame parent) {
-        //Implementation again
+    	//Kian
     	ManifestDialog manifestDialog = new ManifestDialog(parent);
     	manifestDialog.setVisible(true); 
     	return manifestDialog.manifest;

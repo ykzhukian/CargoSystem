@@ -48,7 +48,7 @@ public class CargoTextArea extends JTextArea {
      * @throws InvalidCodeException 
      */
     public void setToFind(ContainerCode code) {
-        //implementation here - don't forget to update the display
+    	//Kian
     	toFind = code;
     	updateDisplay();
     }
@@ -58,7 +58,7 @@ public class CargoTextArea extends JTextArea {
      *
      */
     public void updateDisplay() {
-    	//implementation here
+    	//Kian
     	setText(cargo.toString(toFind));
     	System.out.println(cargo.toString(toFind));
     	

@@ -64,7 +64,7 @@ public class CargoTextFrame extends JFrame {
             disableButtons();
         } else {
             canvas = new CargoTextArea(cargo);
-            //implementation here
+            //Kian
             canvas.setSize(500, 250);
             pnlDisplay = new JPanel();
             pnlDisplay.add(canvas);
@@ -78,7 +78,7 @@ public class CargoTextFrame extends JFrame {
      * Enables buttons for user interaction.
      */
     private void enableButtons() {
-    	//implementation here 
+    	//Kian 
     	btnNewManifest.setEnabled(true);
     	btnFind.setEnabled(true);
     	btnLoad.setEnabled(true);
@@ -89,8 +89,7 @@ public class CargoTextFrame extends JFrame {
      * Disables buttons from user interaction.
      */
     private void disableButtons() {
-    	//implementation here 
-//    	btnNewManifest.setEnabled(false);
+    	//Kian 
     	btnFind.setEnabled(false);
     	btnLoad.setEnabled(false);
     	btnUnload.setEnabled(false);
@@ -118,7 +117,7 @@ public class CargoTextFrame extends JFrame {
             }
         });
         btnUnload = createButton("Unload", new ActionListener() {
-        	//implementation here 
+        	//Kian 
         	@Override
             public void actionPerformed(ActionEvent e) {
                 Runnable doRun = new Runnable() {
@@ -133,7 +132,7 @@ public class CargoTextFrame extends JFrame {
             }
         });
         btnFind = createButton("Find", new ActionListener() {
-        	//implementation here 
+        	//Kian 
         	@Override
             public void actionPerformed(ActionEvent e) {
                 Runnable doRun = new Runnable() {
@@ -146,7 +145,7 @@ public class CargoTextFrame extends JFrame {
             }
         });
         btnNewManifest = createButton("New Manifest", new ActionListener() {
-        	//implementation here 
+        	//Kian 
         	@Override
             public void actionPerformed(ActionEvent e) {
                 Runnable doRun = new Runnable() {
@@ -154,7 +153,7 @@ public class CargoTextFrame extends JFrame {
                     public void run() {
                     	CargoTextFrame.this.setNewManifest();
                         CargoTextFrame.this.setCanvas(cargo);
-                        resetCanvas();
+                        
                         
                     }
                 };
@@ -162,7 +161,7 @@ public class CargoTextFrame extends JFrame {
             }
         });
 
-      //implementation here 
+      //Kian 
         pnlControls = createControlPanel();
         pnlControls.setLayout(new FlowLayout());
         add(pnlControls, BorderLayout.SOUTH);
@@ -175,7 +174,7 @@ public class CargoTextFrame extends JFrame {
      * @return User control panel.
      */
     private JPanel createControlPanel() {
-    	//implementation here 
+    	//Kian 
     	JPanel controls = new JPanel();
     	controls.add(btnNewManifest);
     	controls.add(btnLoad);
@@ -203,7 +202,7 @@ public class CargoTextFrame extends JFrame {
      * Initiate the New Manifest dialog which sets the instance of CargoManifest to work with.
      */
     private void setNewManifest() {
-		//implementation here 
+		//Kian 
     	try {
     		CargoManifest newManifest = ManifestDialog.showDialog(this);
         	cargo = newManifest;
@@ -219,7 +218,7 @@ public class CargoTextFrame extends JFrame {
      * Turns off container highlighting when an action other than Find is initiated.
      */
     private void resetCanvas() {
-    	//implementation here 
+    	//Kian 
     	canvas.setToFind(null);
     }
 
@@ -227,9 +226,7 @@ public class CargoTextFrame extends JFrame {
      * Initiates the Load Container dialog.
      */
     private void doLoad() {
-    	//implementation here 
-        //Don't forget to redraw
-    	
+    	//Kian 
     	try {
     		FreightContainer newContainer = LoadContainerDialog.showDialog(this);
     		try {
@@ -246,8 +243,7 @@ public class CargoTextFrame extends JFrame {
      * Initiates the Unload Container dialog.
      */
     private void doUnload() {
-    	//implementation here 
-        //Don't forget to redraw
+    	//Kian 
     	try {
     		ContainerCode newContainerCode = ContainerCodeDialog.showDialog(this);
         	try {
@@ -264,7 +260,7 @@ public class CargoTextFrame extends JFrame {
      * Initiates the Find Container dialog.
      */
     private void doFind() {
-    	//implementation here 
+    	//Kian 
     	try {
         	ContainerCode newContainerCode = ContainerCodeDialog.showDialog(this);
     		canvas.setToFind(newContainerCode);
@@ -278,7 +274,7 @@ public class CargoTextFrame extends JFrame {
      *
      */
     private void redraw() {
-    	//implementation here 
+    	//Kian 
     	canvas.updateDisplay();
     }
 }

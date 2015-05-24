@@ -99,7 +99,7 @@ public class ContainerCodeDialog extends AbstractDialog {
              * Attempts to validate the ContainerCode entered in the Container Code text field.
              */
             private void validate() {
-            	//implementation here 
+            	//Kian 
             	System.out.println(txtCode.getText());
             	try {
 					codeTest = new ContainerCode(txtCode.getText());
@@ -112,7 +112,7 @@ public class ContainerCodeDialog extends AbstractDialog {
 				}
             }
         });
-      //implementation here
+      //Kian
         lblErrorInfo = new JLabel(errorMessage);
         addToPanel(toReturn, new JLabel("Container Code:"), constraints, 0, 2, 2, 1);
         addToPanel(toReturn, txtCode, constraints, 3, 2, 2, 1);
@@ -122,7 +122,7 @@ public class ContainerCodeDialog extends AbstractDialog {
 
     @Override
     protected boolean dialogDone() {
-    	//implementation here 
+    	//Kian 
     	if (errorMessage == null && txtCode.getText() != null) {
     		code = codeTest;
     		return true;
@@ -139,7 +139,7 @@ public class ContainerCodeDialog extends AbstractDialog {
      * @return a <code>ContainerCode</code> instance with valid values.
      */
     public static ContainerCode showDialog(JFrame parent) {
-    	//implementation here
+    	//Kian
     	ContainerCodeDialog containerCodeDialog = new ContainerCodeDialog(parent);
     	containerCodeDialog.setVisible(true);
     	return containerCodeDialog.code;

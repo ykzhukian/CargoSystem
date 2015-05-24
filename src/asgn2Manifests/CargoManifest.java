@@ -115,6 +115,7 @@ public class CargoManifest {
 		if (newContainer.getGrossWeight() + currentWeight > maxWeight) {
 			throw new ManifestException("Exceed the ship's weight limit");
 		}
+		System.out.println("current: " + currentWeight + " Max: "+ maxWeight);
 		
 		if (codes.containsKey(newContainer.getCode().toString())) {
 			throw new ManifestException("A duplicate code has been found");
@@ -126,6 +127,7 @@ public class CargoManifest {
 					if (containers.get(i).size() < maxHeight) {
 						containers.get(i).add(newContainer);
 						codes.put(newContainer.getCode().toString(), i);
+						currentWeight += newContainer.getGrossWeight();
 						break;
 					} else if (i == numStacks - 1) { // if there's no more space
 						throw new ManifestException("No suitable space can be found for this container");
@@ -137,6 +139,7 @@ public class CargoManifest {
 				stackType.put(i, newContainer.getType()); // create a stack type to that stack
 				containers.get(i).add(newContainer);	// add container to that stack
 				codes.put(newContainer.getCode().toString(), i); // add code to local
+				currentWeight += newContainer.getGrossWeight();
 				break;
 			}
 			

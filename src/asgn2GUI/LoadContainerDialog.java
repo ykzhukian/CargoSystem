@@ -199,7 +199,7 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
      */
     @Override
     protected boolean dialogDone() {
-        //Implementation here - create the container and set parameters, 
+        //create the container and set parameters, 
     	//But handle the exceptions properly 
     	ContainerCode newCode = null;
 		try {
@@ -257,7 +257,7 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
      * @return a <code>FreightContainer</code> instance with valid values.
      */
     public static FreightContainer showDialog(JFrame parent) {
-       //Implementation here. 
+    	//Kian
     	LoadContainerDialog loadContainerDialog = new LoadContainerDialog(parent);
     	loadContainerDialog.setVisible(true);
     	return loadContainerDialog.container;

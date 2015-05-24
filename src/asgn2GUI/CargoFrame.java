@@ -1,6 +1,7 @@
 package asgn2GUI;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import javax.swing.SwingUtilities;
 
 import asgn2Codes.ContainerCode;
 import asgn2Containers.FreightContainer;
+import asgn2Exceptions.ManifestException;
 import asgn2Manifests.CargoManifest;
 
 /**
@@ -66,6 +68,11 @@ public class CargoFrame extends JFrame {
         } else {
             canvas = new CargoCanvas(cargo);
           //implementation here    
+            pnlDisplay = new JPanel();
+            pnlDisplay.add(canvas);
+            add(pnlDisplay, BorderLayout.WEST);
+            enableButtons();
+            
         }
         redraw();
     }
@@ -75,6 +82,10 @@ public class CargoFrame extends JFrame {
      */
     private void enableButtons() {
     	//implementation here    
+    	btnNewManifest.setEnabled(true);
+    	btnFind.setEnabled(true);
+    	btnLoad.setEnabled(true);
+    	btnUnload.setEnabled(true);
     }
 
     /**
@@ -82,6 +93,9 @@ public class CargoFrame extends JFrame {
      */
     private void disableButtons() {
     	//implementation here    
+    	btnFind.setEnabled(false);
+    	btnLoad.setEnabled(false);
+    	btnUnload.setEnabled(false);
     }
 
     /**
@@ -106,15 +120,51 @@ public class CargoFrame extends JFrame {
         });
         btnUnload = createButton("Unload", new ActionListener() {
         	//implementation here    
+        	@Override
+            public void actionPerformed(ActionEvent e) {
+                Runnable doRun = new Runnable() {
+                    @Override
+                    public void run() {
+                        CargoFrame.this.resetCanvas();
+                        CargoFrame.this.doUnload();
+                    }
+                };
+                SwingUtilities.invokeLater(doRun);
+            }
         });
         btnFind = createButton("Find", new ActionListener() {
-        	//implementation here    
+        	//implementation here  
+        	@Override
+            public void actionPerformed(ActionEvent e) {
+                Runnable doRun = new Runnable() {
+                    @Override
+                    public void run() {
+                        CargoFrame.this.resetCanvas();
+                        CargoFrame.this.doFind();
+                    }
+                };
+                SwingUtilities.invokeLater(doRun);
+            }
         });
         btnNewManifest = createButton("New Manifest", new ActionListener() {
         	//implementation here    
+        	@Override
+            public void actionPerformed(ActionEvent e) {
+                Runnable doRun = new Runnable() {
+                    @Override
+                    public void run() {
+                        CargoFrame.this.resetCanvas();
+                        CargoFrame.this.setNewManifest();
+                    }
+                };
+                SwingUtilities.invokeLater(doRun);
+            }
         });
 
       //implementation here    
+        pnlControls = createControlPanel();
+        pnlControls.setLayout(new FlowLayout());
+        add(pnlControls, BorderLayout.SOUTH);
         repaint();
     }
 
@@ -125,6 +175,13 @@ public class CargoFrame extends JFrame {
      */
     private JPanel createControlPanel() {
     	//implementation here    
+    	JPanel controls = new JPanel();
+    	controls.add(btnNewManifest);
+    	controls.add(btnLoad);
+    	controls.add(btnUnload);
+    	controls.add(btnFind);
+    	
+    	return controls;
     }
 
     /**
@@ -146,6 +203,13 @@ public class CargoFrame extends JFrame {
      */
     private void setNewManifest() {
     	//implementation here    
+    	try {
+    		CargoManifest newManifest = ManifestDialog.showDialog(this);
+        	cargo = newManifest;
+        	if ( cargo.toString() != null ) {
+        		enableButtons();
+        	}
+		} catch (Exception e) { }
     }
 
     /**
@@ -161,6 +225,14 @@ public class CargoFrame extends JFrame {
     private void doLoad() {
     	//implementation here 
     	//don't forget to redraw
+    	try {
+    		FreightContainer newContainer = LoadContainerDialog.showDialog(this);
+    		try {
+    			cargo.loadContainer(newContainer);
+    		} catch (ManifestException e) {
+    			JOptionPane.showMessageDialog(this, e.getMessage());
+    		}
+		} catch (Exception e) { }
     }
 
     private void doUnload() {

@@ -1,10 +1,12 @@
 package asgn2GUI;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 // import java.awt.event.ActionEvent;
 // import java.awt.event.ActionListener;
+
 
 
 
@@ -41,6 +43,8 @@ public class ContainerCodeDialog extends AbstractDialog {
 
     private ContainerCode code;
     private String errorMessage;
+    
+    private ContainerCode codeTest;
 
 
     /**
@@ -98,7 +102,7 @@ public class ContainerCodeDialog extends AbstractDialog {
             	//implementation here 
             	System.out.println(txtCode.getText());
             	try {
-					code = new ContainerCode(txtCode.getText());
+					codeTest = new ContainerCode(txtCode.getText());
 					lblErrorInfo.setText("No Error");
 					errorMessage = null;
 				} catch (InvalidCodeException e) {
@@ -119,7 +123,8 @@ public class ContainerCodeDialog extends AbstractDialog {
     @Override
     protected boolean dialogDone() {
     	//implementation here 
-    	if (errorMessage == null) {
+    	if (errorMessage == null && txtCode.getText() != null) {
+    		code = codeTest;
     		return true;
     	} else {
     		JOptionPane.showMessageDialog(this, errorMessage);

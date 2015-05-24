@@ -111,7 +111,7 @@ public class CargoTextFrame extends JFrame {
                     public void run() {
                     	resetCanvas();
                         CargoTextFrame.this.doLoad();
-                    	redraw();
+                    	
                     }
                 };
                 SwingUtilities.invokeLater(doRun);
@@ -126,7 +126,7 @@ public class CargoTextFrame extends JFrame {
                     public void run() {
                     	resetCanvas();
                         CargoTextFrame.this.doUnload();
-                    	redraw();
+                    	
                     }
                 };
                 SwingUtilities.invokeLater(doRun);
@@ -139,7 +139,6 @@ public class CargoTextFrame extends JFrame {
                 Runnable doRun = new Runnable() {
                     @Override
                     public void run() {
-                    	resetCanvas();
                         CargoTextFrame.this.doFind();
                     }
                 };
@@ -156,7 +155,7 @@ public class CargoTextFrame extends JFrame {
                     	CargoTextFrame.this.setNewManifest();
                         CargoTextFrame.this.setCanvas(cargo);
                         resetCanvas();
-                        redraw();
+                        
                     }
                 };
                 SwingUtilities.invokeLater(doRun);
@@ -211,6 +210,7 @@ public class CargoTextFrame extends JFrame {
         	if ( cargo.toString() != null ) {
         		enableButtons();
         	}
+        	redraw();
 		} catch (Exception e) { }
     	
     }
@@ -234,6 +234,7 @@ public class CargoTextFrame extends JFrame {
     		FreightContainer newContainer = LoadContainerDialog.showDialog(this);
     		try {
     			cargo.loadContainer(newContainer);
+    			redraw();
     		} catch (ManifestException e) {
     			JOptionPane.showMessageDialog(this, e.getMessage());
     		}
@@ -251,6 +252,7 @@ public class CargoTextFrame extends JFrame {
     		ContainerCode newContainerCode = ContainerCodeDialog.showDialog(this);
         	try {
     			cargo.unloadContainer(newContainerCode);
+    			redraw();
     		} catch (ManifestException e) {
     			JOptionPane.showMessageDialog(this, e.getMessage());
     		}

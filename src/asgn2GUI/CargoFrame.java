@@ -2,7 +2,9 @@ package asgn2GUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.HeadlessException;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,7 +22,7 @@ import asgn2Manifests.CargoManifest;
 /**
  * The main window for the Cargo Manifest graphics application.
  *
- * @author CAB302
+ * @author CAB302 Yunkai (Kian) Zhu n9253921
  */
 public class CargoFrame extends JFrame {
 
@@ -38,6 +40,7 @@ public class CargoFrame extends JFrame {
     private JPanel pnlDisplay;
 
     private CargoManifest cargo;
+    
 
     /**
      * Constructs the GUI.
@@ -153,8 +156,9 @@ public class CargoFrame extends JFrame {
                 Runnable doRun = new Runnable() {
                     @Override
                     public void run() {
-                        CargoFrame.this.resetCanvas();
                         CargoFrame.this.setNewManifest();
+                        setCanvas(cargo);
+                        CargoFrame.this.resetCanvas();
                     }
                 };
                 SwingUtilities.invokeLater(doRun);
@@ -216,7 +220,9 @@ public class CargoFrame extends JFrame {
      * Turns off container highlighting when an action other than Find is initiated.
      */
     private void resetCanvas() {
-    	//implementation here    
+    	//implementation here   
+    	canvas.setToFind(null);
+    	redraw();
     }
 
     /**
@@ -229,6 +235,7 @@ public class CargoFrame extends JFrame {
     		FreightContainer newContainer = LoadContainerDialog.showDialog(this);
     		try {
     			cargo.loadContainer(newContainer);
+    			redraw();
     		} catch (ManifestException e) {
     			JOptionPane.showMessageDialog(this, e.getMessage());
     		}
@@ -238,10 +245,24 @@ public class CargoFrame extends JFrame {
     private void doUnload() {
     	//implementation here 
     	//don't forget to redraw
+    	try {
+    		ContainerCode newContainerCode = ContainerCodeDialog.showDialog(this);
+        	try {
+    			cargo.unloadContainer(newContainerCode);
+    			redraw();
+    		} catch (ManifestException e) {
+    			JOptionPane.showMessageDialog(this, e.getMessage());
+    		}
+		} catch (Exception e) { }
     }
 
     private void doFind() {
     	//implementation here 
+    	try {
+        	ContainerCode newContainerCode = ContainerCodeDialog.showDialog(this);
+    		canvas.setToFind(newContainerCode);
+    		redraw();
+		} catch (Exception e) { }
     }
 
     private void redraw() {

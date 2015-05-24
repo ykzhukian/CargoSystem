@@ -122,7 +122,7 @@ public class CargoManifest {
 		
 		for (int i = 0; i < numStacks; i++) {
 			if (stackType.get(i) != null) {
-				if (stackType.get(i) == newContainer.getType()) {
+				if (stackType.get(i).equals(newContainer.getType())) {
 					if (containers.get(i).size() < maxHeight) {
 						containers.get(i).add(newContainer);
 						codes.put(newContainer.getCode().toString(), i);
@@ -258,5 +258,9 @@ public class CargoManifest {
 	@Override
 	public String toString() {
 		return toString(null);
+	}
+	
+	public int getStackNumber() {
+		return numStacks;
 	}
 }

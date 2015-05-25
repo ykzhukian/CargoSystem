@@ -118,6 +118,7 @@ public class ManifestDialog extends AbstractDialog {
 				JOptionPane.showMessageDialog(this, "Invalid Input Type");
 				return false;
 			} catch (ManifestException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage());
 				return false;
 			}
         } else {

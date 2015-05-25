@@ -165,6 +165,7 @@ public class CargoManifest {
 		FreightContainer topContainer = containers.get(stackNumber).get(containers.get(stackNumber).size() - 1);
 		if (topContainer.getCode().toString().equals(containerId.toString())) {
 			containers.get(stackNumber).remove(containers.get(stackNumber).size() - 1);	// remove it from containers
+			currentWeight -= topContainer.getGrossWeight();				// minus the current weight
 			if (containers.get(stackNumber).size() == 0) {
 				stackType.remove(codes.get(containerId.toString()));		// if it is the last container, remove the type of that stack
 			}

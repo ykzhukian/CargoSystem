@@ -213,8 +213,7 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
     		try {
 				container = new DangerousGoodsContainer(newCode, Integer.parseInt(txtWeight.getText()), Integer.parseInt(txtDangerousGoodsType.getText()));
 			} catch (NumberFormatException e) {
-				errorMessage = e.getMessage();
-				JOptionPane.showMessageDialog(this, errorMessage);
+				JOptionPane.showMessageDialog(this, "Invalid Input Type");
 				return false;
 			} catch (InvalidContainerException e) {
 				errorMessage = e.getMessage();
@@ -225,8 +224,7 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
     		try {
 				container = new GeneralGoodsContainer(newCode, Integer.parseInt(txtWeight.getText()));
 			} catch (NumberFormatException e) {
-				errorMessage = e.getMessage();
-				JOptionPane.showMessageDialog(this, errorMessage);
+				JOptionPane.showMessageDialog(this, "Invalid Input Type");
 				return false;
 			} catch (InvalidContainerException e) {
 				errorMessage = e.getMessage();
@@ -237,8 +235,7 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
     		try {
 				container = new RefrigeratedContainer(newCode, Integer.parseInt(txtWeight.getText()), Integer.parseInt(txtTemperature.getText()));
 			} catch (NumberFormatException e) {
-				errorMessage = e.getMessage();
-				JOptionPane.showMessageDialog(this, errorMessage);
+				JOptionPane.showMessageDialog(this, "Invalid Input Type");
 				return false;
 			} catch (InvalidContainerException e) {
 				errorMessage = e.getMessage();

@@ -11,7 +11,7 @@ import asgn2Exceptions.InvalidContainerException;
  * has an externally-readable thermometer to display the internal
  * temperature, but we omit this feature here.)
  * 
- * @author CAB302
+ * @author CAB302 Than Nhat Huy Nguyen - n8781583
  * @version 1.0
  */
 public class RefrigeratedContainer extends FreightContainer {

@@ -10,7 +10,7 @@ import asgn2Exceptions.InvalidContainerException;
  * container code and must have a stated gross weight.  (The gross
  * weight is the sum of the container's tare and net weights.)
  * 
- * @author CAB302
+ * @author CAB302 Ryan does something here
  * @version 1.0
  */
 public abstract class FreightContainer {

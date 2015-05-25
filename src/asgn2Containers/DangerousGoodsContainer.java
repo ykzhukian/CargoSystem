@@ -42,7 +42,7 @@ import asgn2Exceptions.InvalidContainerException;
  * </li>
  * </ol>
  * 
- * @author CAB302
+ * @author CAB302 Than Nhat Huy Nguyen - n8781583
  * @version 1.0
  */
 public class DangerousGoodsContainer extends FreightContainer {

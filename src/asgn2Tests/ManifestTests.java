@@ -56,6 +56,16 @@ public class ManifestTests {
 	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
 	 */
 	@Test(expected=Exception.class)
+	public void noSuitableSpaceForContainerTest() throws ManifestException{
+		manifestTest = new CargoManifest(1, 1, 1);
+		manifestTest.loadContainer(container_1);
+		manifestTest.loadContainer(container_1);
+	}
+	
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 */
+	@Test(expected=Exception.class)
 	public void invalidMaxHeight() throws ManifestException{
 		manifestTest = new CargoManifest(NUM_STACKS, MAX_WEIGHT, -1);
 	}
@@ -69,8 +79,7 @@ public class ManifestTests {
 	public void setUp() throws InvalidCodeException, ManifestException, InvalidContainerException {
 		valid_code_1 = new ContainerCode("MSCU6639871");
 		container_1 = new GeneralGoodsContainer(valid_code_1, 15);
-		manifestTest = new CargoManifest(NUM_STACKS, MAX_HEIGHT, MAX_WEIGHT);
-		
+		manifestTest = new CargoManifest(NUM_STACKS, MAX_HEIGHT, MAX_WEIGHT);		
 	}
 	
 	/**
@@ -82,14 +91,40 @@ public class ManifestTests {
 		manifestTest.loadContainer(container_1);
 	}
 	
-
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 * @throws InvalidContainerException 
+	 */
+	@Test(expected=Exception.class)
+	public void shipsWeightExceedingLimitTest() throws ManifestException, InvalidContainerException{
+		manifestTest.loadContainer(new GeneralGoodsContainer(valid_code_1, 140));
+		manifestTest.loadContainer(container_1);
+	}
+	
 	/**
 	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
 	 * @throws InvalidCodeException 
 	 */
 	@Test(expected=Exception.class)
-	public void unloadContainer() throws ManifestException, InvalidCodeException{
-		valid_code_1 = new ContainerCode("");
+	public void unloadContainerTest() throws ManifestException, InvalidCodeException{
+		manifestTest.loadContainer(container_1);
+		manifestTest.unloadContainer(new ContainerCode("MSCU6639872"));
+	}
+	
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 * @throws InvalidCodeException 
+	 * @throws InvalidContainerException 
+	 */
+	@Test(expected=Exception.class)
+	public void containerNotOnTopTest() throws ManifestException, InvalidCodeException, InvalidContainerException{
+		ContainerCode valid_code_2 = new ContainerCode("MSCU6639872");
+		GeneralGoodsContainer container_2 = new GeneralGoodsContainer(valid_code_2, 15);
+		manifestTest.loadContainer(container_2);
+		manifestTest.loadContainer(container_1);
+		manifestTest.unloadContainer(new ContainerCode("MSCU6639872"));
+		
+
 	}
 	
 	/**
@@ -101,12 +136,5 @@ public class ManifestTests {
 		valid_code_1 = new ContainerCode("mSCU66398711");
 	}
 	
-	/**
-	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
-	 * @throws InvalidCodeException 
-	 */
-	@Test(expected=Exception.class)
-	public void nullCodeContainer() throws ManifestException, InvalidCodeException{
-		valid_code_1 = new ContainerCode(null);
-	}
+	
 }

@@ -83,5 +83,30 @@ public class ManifestTests {
 	}
 	
 
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 * @throws InvalidCodeException 
+	 */
+	@Test(expected=Exception.class)
+	public void unloadContainer() throws ManifestException, InvalidCodeException{
+		valid_code_1 = new ContainerCode("");
+	}
 	
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 * @throws InvalidCodeException 
+	 */
+	@Test(expected=Exception.class)
+	public void invalidCodeContainer() throws ManifestException, InvalidCodeException{
+		valid_code_1 = new ContainerCode("mSCU66398711");
+	}
+	
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 * @throws InvalidCodeException 
+	 */
+	@Test(expected=Exception.class)
+	public void nullCodeContainer() throws ManifestException, InvalidCodeException{
+		valid_code_1 = new ContainerCode(null);
+	}
 }

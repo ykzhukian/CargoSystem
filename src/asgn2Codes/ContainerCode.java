@@ -13,6 +13,12 @@ import asgn2Exceptions.InvalidCodeException;
  */
 
 /**
+ * 
+ * @author CAB302 Than Nhat Huy Nguyen - 8781583
+ * 
+ */
+
+/**
  * This class provides cargo container codes in a format similar to that
  * prescribed by international standard ISO 6346.  (The only difference
  * is that we use a simpler algorithm for calculating the check digit.)

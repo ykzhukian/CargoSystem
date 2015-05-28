@@ -33,7 +33,11 @@ public class ManifestTests {
 	//Implementation Here	
 	private CargoManifest manifestTest;
 	private ContainerCode valid_code_1;
+	private ContainerCode valid_code_2;
+	private ContainerCode valid_code_3;
 	private FreightContainer container_1;
+	private FreightContainer container_2;
+	private FreightContainer container_3;
 	private static final int NUM_STACKS = 150;
 	private static final int MAX_HEIGHT = 3;
 	private static final int MAX_WEIGHT = 150;
@@ -82,7 +86,11 @@ public class ManifestTests {
 	@Before
 	public void setUp() throws InvalidCodeException, ManifestException, InvalidContainerException {
 		valid_code_1 = new ContainerCode("MSCU6639871");
+		valid_code_2 = new ContainerCode("FQUU8201776");
+		valid_code_3 = new ContainerCode("HCTU7419009");
 		container_1 = new GeneralGoodsContainer(valid_code_1, 15);
+		container_2 = new GeneralGoodsContainer(valid_code_2, 30);
+		container_3 = new DangerousGoodsContainer(valid_code_3, 30, 2);
 		manifestTest = new CargoManifest(NUM_STACKS, MAX_HEIGHT, MAX_WEIGHT);		
 	}
 	
@@ -112,7 +120,7 @@ public class ManifestTests {
 	@Test(expected=Exception.class)
 	public void unloadContainerTest() throws ManifestException, InvalidCodeException{
 		manifestTest.loadContainer(container_1);
-		manifestTest.unloadContainer(new ContainerCode("MSCU6639872"));
+		manifestTest.unloadContainer(valid_code_1);
 	}
 	
 	/**
@@ -145,8 +153,8 @@ public class ManifestTests {
 	 */
 	@Test
 	public void checkNullContainerCodeWhichStack() throws ManifestException, InvalidCodeException{
-		Integer returnValue = manifestTest.whichStack(new ContainerCode("MSCU66398799"));
-		assertTrue(returnValue == null);
+		manifestTest.loadContainer(container_2);
+		assertTrue(manifestTest.whichStack(valid_code_1) == null);
 		
 	}
 	
@@ -156,8 +164,9 @@ public class ManifestTests {
 	 */
 	@Test
 	public void checkValidContanerCodeWhichStack() throws ManifestException, InvalidCodeException{
-		Integer returnValue = manifestTest.whichStack(valid_code_1);
-		assertTrue(returnValue.toString() == valid_code_1);
+		manifestTest.loadContainer(container_2);
+		manifestTest.loadContainer(container_3);
+		assertTrue(manifestTest.whichStack(valid_code_3) == 1);
 		
 	}
 	
@@ -167,8 +176,8 @@ public class ManifestTests {
 	 */
 	@Test
 	public void checkNullContainerCodeHowHigh() throws ManifestException, InvalidCodeException{
-		Integer returnValue = manifestTest.howHigh(new ContainerCode("MSCU66398799"));
-		assertTrue(returnValue == null);
+		manifestTest.loadContainer(container_1);
+		assertTrue(manifestTest.howHigh(valid_code_2) == null);
 		
 	}
 	
@@ -178,10 +187,15 @@ public class ManifestTests {
 	 */
 	@Test
 	public void checkValidContanerCodeHowHigh() throws ManifestException, InvalidCodeException{
-		Integer returnValue = manifestTest.howHigh(valid_code_1);
-		assertTrue(returnValue.toString() == valid_code_1.toString());
+		manifestTest.loadContainer(container_1);
+		manifestTest.loadContainer(container_2);
+		manifestTest.loadContainer(container_3);
+		System.out.println(manifestTest.howHigh(valid_code_2));
+		System.out.println(valid_code_2.toString());
+		assertTrue(manifestTest.howHigh(valid_code_2) == 1);
 		
 	}
+	
 	
 	
 	

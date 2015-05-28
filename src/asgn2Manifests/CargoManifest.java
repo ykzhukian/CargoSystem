@@ -210,7 +210,13 @@ public class CargoManifest {
 			return null;
 		} else {
 			int stackNumber = codes.get(queryContainer.toString());
-			int index = containers.get(stackNumber).indexOf(queryContainer.toString());
+			int index = -1;
+			for (int i = 0; i < containers.get(stackNumber).size(); i++) {
+				if (containers.get(stackNumber).get(i).getCode().toString().equals(queryContainer.toString())) {
+					index = i;
+					break;
+				}
+			}
 			return index;
 		}
 	}

@@ -18,7 +18,7 @@ public class ManifestException extends CargoException {
 	 * @param message an informative message describing the problem encountered
 	 */
 	public ManifestException(String message) {
-		super("ManifestException:" + message);
+		super("ManifestException: " + message);
 	}
 
 }

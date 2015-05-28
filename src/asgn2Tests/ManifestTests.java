@@ -117,10 +117,11 @@ public class ManifestTests {
 	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
 	 * @throws InvalidCodeException 
 	 */
-	@Test(expected=Exception.class)
+	@Test
 	public void unloadContainerTest() throws ManifestException, InvalidCodeException{
 		manifestTest.loadContainer(container_1);
 		manifestTest.unloadContainer(valid_code_1);
+		assertTrue(manifestTest.whichStack(valid_code_1) == null);
 	}
 	
 	/**
@@ -128,14 +129,13 @@ public class ManifestTests {
 	 * @throws InvalidCodeException 
 	 * @throws InvalidContainerException 
 	 */
-	@Test(expected=Exception.class)
+	@Test
 	public void containerNotOnTopTest() throws ManifestException, InvalidCodeException, InvalidContainerException{
-		ContainerCode valid_code_2 = new ContainerCode("MSCU6639872");
-		GeneralGoodsContainer container_2 = new GeneralGoodsContainer(valid_code_2, 15);
 		manifestTest.loadContainer(container_2);
 		manifestTest.loadContainer(container_1);
-		manifestTest.unloadContainer(new ContainerCode("MSCU6639872"));
-		
+		manifestTest.unloadContainer(valid_code_1);
+		assertTrue(manifestTest.howHigh(valid_code_1) == null);
+		assertTrue(manifestTest.howHigh(valid_code_2) == 0);
 	}
 	
 	/**

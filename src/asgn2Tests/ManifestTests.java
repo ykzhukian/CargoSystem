@@ -9,8 +9,6 @@ package asgn2Tests;
  * IBMU4882351
  */
 
-
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +22,12 @@ import asgn2Exceptions.InvalidContainerException;
 import asgn2Exceptions.ManifestException;
 import asgn2Manifests.CargoManifest;
 import static org.junit.Assert.*;
+
+/**
+ * 
+ * @author CAB302 Than Nhat Huy Nguyen - 8781583
+ *
+ */
 
 public class ManifestTests {
 	//Implementation Here	
@@ -124,7 +128,6 @@ public class ManifestTests {
 		manifestTest.loadContainer(container_1);
 		manifestTest.unloadContainer(new ContainerCode("MSCU6639872"));
 		
-
 	}
 	
 	/**
@@ -135,6 +138,52 @@ public class ManifestTests {
 	public void invalidCodeContainer() throws ManifestException, InvalidCodeException{
 		valid_code_1 = new ContainerCode("mSCU66398711");
 	}
+	
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 * @throws InvalidCodeException 
+	 */
+	@Test
+	public void checkNullContainerCodeWhichStack() throws ManifestException, InvalidCodeException{
+		Integer returnValue = manifestTest.whichStack(new ContainerCode("MSCU66398799"));
+		assertTrue(returnValue == null);
+		
+	}
+	
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 * @throws InvalidCodeException 
+	 */
+	@Test
+	public void checkValidContanerCodeWhichStack() throws ManifestException, InvalidCodeException{
+		Integer returnValue = manifestTest.whichStack(valid_code_1);
+		assertTrue(returnValue.toString() == valid_code_1);
+		
+	}
+	
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 * @throws InvalidCodeException 
+	 */
+	@Test
+	public void checkNullContainerCodeHowHigh() throws ManifestException, InvalidCodeException{
+		Integer returnValue = manifestTest.howHigh(new ContainerCode("MSCU66398799"));
+		assertTrue(returnValue == null);
+		
+	}
+	
+	/**
+	 * Test method for {@link asgn2Manifests.CargoManifest#CargoManifest(Integer numStacks, Integer maxHeight, Integer maxWeight)}.
+	 * @throws InvalidCodeException 
+	 */
+	@Test
+	public void checkValidContanerCodeHowHigh() throws ManifestException, InvalidCodeException{
+		Integer returnValue = manifestTest.howHigh(valid_code_1);
+		assertTrue(returnValue.toString() == valid_code_1.toString());
+		
+	}
+	
+	
 	
 	
 }

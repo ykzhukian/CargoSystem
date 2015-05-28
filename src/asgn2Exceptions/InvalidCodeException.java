@@ -17,7 +17,7 @@ public class InvalidCodeException extends CargoException {
 	 * @param message an informative message describing the problem encountered
 	 */
 	public InvalidCodeException(String message) {
-		super("InvalidCode Exception: " + message);
+		super("InvalidCodeException: " + message);
 	}
 
 }

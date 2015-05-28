@@ -15,7 +15,7 @@ import asgn2Manifests.CargoManifest;
 /**
  * The main window for the Cargo Manifest Text application.
  *
- * @author CAB302 Yunkai (Kian) Zhu n9253921
+ * @author CAB302 Than Nhat Huy Nguyen - 8781583
  */
 public class CargoTextFrame extends JFrame {
 
@@ -233,7 +233,7 @@ public class CargoTextFrame extends JFrame {
     			cargo.loadContainer(newContainer);
     			redraw();
     		} catch (ManifestException e) {
-    			JOptionPane.showMessageDialog(this, e.getMessage());
+    			JOptionPane.showMessageDialog(this, e.getMessage(), "Invalid Loading", JOptionPane.ERROR_MESSAGE);
     		}
 		} catch (Exception e) { }
     	
@@ -250,7 +250,7 @@ public class CargoTextFrame extends JFrame {
     			cargo.unloadContainer(newContainerCode);
     			redraw();
     		} catch (ManifestException e) {
-    			JOptionPane.showMessageDialog(this, e.getMessage());
+    			JOptionPane.showMessageDialog(this, e.getMessage(), "Invalid UnLoading", JOptionPane.ERROR_MESSAGE);
     		}
 		} catch (Exception e) { }
     	

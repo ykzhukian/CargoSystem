@@ -60,7 +60,5 @@ public class CargoTextArea extends JTextArea {
     public void updateDisplay() {
     	//Kian
     	setText(cargo.toString(toFind));
-    	System.out.println(cargo.toString(toFind));
-    	
     }
 }

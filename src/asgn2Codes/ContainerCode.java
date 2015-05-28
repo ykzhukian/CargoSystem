@@ -78,7 +78,7 @@ import asgn2Exceptions.InvalidCodeException;
  * i.e., '<code>1</code>', thus confirming that container code 
  * <code>MSCU6639871</code> is valid.
  * 
- * @author CAB302 Yunkai(Kian) Zhu n9253921
+ * @author CAB302 Than Nhat Huy Nguyen - 8781583
  * @version 1.0
  */ 
 public class ContainerCode {

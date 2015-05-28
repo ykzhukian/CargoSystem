@@ -90,7 +90,6 @@ public class CargoCanvas extends JPanel {
     		g.fillRect(3, i*60 + 20, 3, 50);
     		try {
 				FreightContainer[] containers = cargo.toArray(i);
-				System.out.println(cargo.toArray(i).length);
 				for (int j = 0; j < containers.length; j++) {
 					drawContainer(g, containers[j], j*110 + 20, i*60 + 20);
 				}

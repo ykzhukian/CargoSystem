@@ -27,7 +27,7 @@ import asgn2Exceptions.InvalidContainerException;
 /**
  * Creates a dialog box allowing the user to enter information required for loading a container.
  *
- * @author CAB302 Yunkai (Kian) Zhu n9253921
+ * @author CAB302 Than Nhat Huy Nguyen - 8781583
  */
 public class LoadContainerDialog extends AbstractDialog implements ActionListener, ItemListener {
 
@@ -188,8 +188,6 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
 	        		type = 1;
 	        		pnlCards.setVisible(false);
 	        	}
-	        	
-	        	System.out.println((String)event.getItem());
 	            break;
         }
     }
@@ -206,40 +204,40 @@ public class LoadContainerDialog extends AbstractDialog implements ActionListene
 			newCode = new ContainerCode(txtCode.getText());
 		} catch (InvalidCodeException e) {
 			errorMessage = e.getMessage();
-			JOptionPane.showMessageDialog(this, errorMessage);
+			JOptionPane.showMessageDialog(this, errorMessage, "Invalid Code", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
     	if (type == 0) {
     		try {
 				container = new DangerousGoodsContainer(newCode, Integer.parseInt(txtWeight.getText()), Integer.parseInt(txtDangerousGoodsType.getText()));
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "Invalid Input Type");
+				JOptionPane.showMessageDialog(this, "Invalid Input Type", "Invalid Container", JOptionPane.ERROR_MESSAGE);
 				return false;
 			} catch (InvalidContainerException e) {
 				errorMessage = e.getMessage();
-				JOptionPane.showMessageDialog(this, errorMessage);
+				JOptionPane.showMessageDialog(this, errorMessage, "Invalid Container", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
     	} else if (type == 1) {
     		try {
 				container = new GeneralGoodsContainer(newCode, Integer.parseInt(txtWeight.getText()));
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "Invalid Input Type");
+				JOptionPane.showMessageDialog(this, "Invalid Input Type", "Invalid Container", JOptionPane.ERROR_MESSAGE);
 				return false;
 			} catch (InvalidContainerException e) {
 				errorMessage = e.getMessage();
-				JOptionPane.showMessageDialog(this, errorMessage);
+				JOptionPane.showMessageDialog(this, errorMessage, "Invalid Container", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
     	} else if (type == 2) {
     		try {
 				container = new RefrigeratedContainer(newCode, Integer.parseInt(txtWeight.getText()), Integer.parseInt(txtTemperature.getText()));
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "Invalid Input Type");
+				JOptionPane.showMessageDialog(this, "Invalid Input Type", "Invalid Container", JOptionPane.ERROR_MESSAGE);
 				return false;
 			} catch (InvalidContainerException e) {
 				errorMessage = e.getMessage();
-				JOptionPane.showMessageDialog(this, errorMessage);
+				JOptionPane.showMessageDialog(this, errorMessage, "Invalid Container", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
     	}

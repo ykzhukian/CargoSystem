@@ -237,7 +237,7 @@ public class CargoFrame extends JFrame {
     			cargo.loadContainer(newContainer);
     			redraw();
     		} catch (ManifestException e) {
-    			JOptionPane.showMessageDialog(this, e.getMessage());
+    			JOptionPane.showMessageDialog(this, e.getMessage(),  "Invalid Loading", JOptionPane.ERROR_MESSAGE);
     		}
 		} catch (Exception e) { }
     }
@@ -250,7 +250,7 @@ public class CargoFrame extends JFrame {
     			cargo.unloadContainer(newContainerCode);
     			redraw();
     		} catch (ManifestException e) {
-    			JOptionPane.showMessageDialog(this, e.getMessage());
+    			JOptionPane.showMessageDialog(this, e.getMessage(), "Invalid UnLoading", JOptionPane.ERROR_MESSAGE);
     		}
 		} catch (Exception e) { }
     }

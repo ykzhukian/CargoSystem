@@ -1,0 +1,26 @@
+Yunkai Zhu (Kian) n9253921
+Code:
+ContainerCode.java
+Exceptions
+CargoManifest.java
+GUI Dialogs.java
+CargoCanvas.java
+CargoFrame.java
+Test:
+ContianerTests.java
+GUI Test (manual)
+
+Thannhathuy Nguyen (Ryan) n8781583
+Code:
+Containers.java
+CargoTextArea.java
+CargoTextFrame.java
+LoadContainerDialog.java
+Test:
+ManifestTests.java
+
+We have attempted the graphics version of the GUI.
+We have used manual GUI tests.
+
+Yunkai Zhu agrees with this statement.
+Thannhathuy Nguyen agrees with this statement.

@@ -23,7 +23,7 @@ import asgn2GUI.CargoTextFrame;
 /**
  * Defines FEST Swing tests for use cases of the Cargo Manifest system.
  *
- * @author Malcolm. Created 7 May 2015.
+ * @author Malcolm Corney. Created 7 May 2015.
  */
 public class CargoFrameTests {
 
@@ -72,6 +72,7 @@ public class CargoFrameTests {
     private static final int LONG_PAUSE = 3000;
 
     private static final Pattern CARGO_EXCEPTION_PATTERN = Pattern.compile("CargoException:.+");
+    private static final Pattern MANIFEST_EXCEPTION_PATTERN = Pattern.compile(".*ManifestException:.+");
 
     private FrameFixture testFrame;
     private JFrame frameUnderTest;
@@ -239,7 +240,7 @@ public class CargoFrameTests {
         DialogFixture manifestFixture = prepareManifestDialog();
         manifestDialogEnterText(manifestFixture, NEGATIVE, HEIGHT_5, WEIGHT_100);
         manifestFixture.optionPane().requireErrorMessage();
-        manifestFixture.optionPane().requireMessage(CARGO_EXCEPTION_PATTERN);
+        manifestFixture.optionPane().requireMessage(MANIFEST_EXCEPTION_PATTERN);
     }
 
     /**
@@ -251,7 +252,7 @@ public class CargoFrameTests {
         DialogFixture manifestFixture = prepareManifestDialog();
         manifestDialogEnterText(manifestFixture, STACKS_5, NEGATIVE, WEIGHT_100);
         manifestFixture.optionPane().requireErrorMessage();
-        manifestFixture.optionPane().requireMessage(CARGO_EXCEPTION_PATTERN);
+        manifestFixture.optionPane().requireMessage(MANIFEST_EXCEPTION_PATTERN);
     }
 
     /**
@@ -263,7 +264,7 @@ public class CargoFrameTests {
         DialogFixture manifestFixture = prepareManifestDialog();
         manifestDialogEnterText(manifestFixture, STACKS_5, HEIGHT_5, NEGATIVE);
         manifestFixture.optionPane().requireErrorMessage();
-        manifestFixture.optionPane().requireMessage(CARGO_EXCEPTION_PATTERN);
+        manifestFixture.optionPane().requireMessage(MANIFEST_EXCEPTION_PATTERN);
     }
 
     /**
@@ -288,7 +289,8 @@ public class CargoFrameTests {
     public void newManifestOneEmptyStack() {
         manifestDialogEnterText(prepareManifestDialog(), STACKS_1, HEIGHT_1, WEIGHT_100);
         if (frameUnderTest instanceof CargoTextFrame) {
-            assertEquals("||  ||\n", testFrame.textBox(CARGO_TEXT_AREA).text());
+            String expected = START_BARS + END_BARS + NEW_LINE;
+            assertEquals(expected, testFrame.textBox(CARGO_TEXT_AREA).text());
         }
     }
 
@@ -300,7 +302,10 @@ public class CargoFrameTests {
     public void newManifestThreeEmptyStacks() {
         manifestDialogEnterText(prepareManifestDialog(), STACKS_3, HEIGHT_1, WEIGHT_100);
         if (frameUnderTest instanceof CargoTextFrame) {
-            assertEquals("||  ||\n||  ||\n||  ||\n", testFrame.textBox(CARGO_TEXT_AREA).text());
+            String expected = START_BARS + END_BARS + NEW_LINE
+                    + START_BARS + END_BARS + NEW_LINE
+                    + START_BARS + END_BARS + NEW_LINE;
+            assertEquals(expected, testFrame.textBox(CARGO_TEXT_AREA).text());
         }
     }
 

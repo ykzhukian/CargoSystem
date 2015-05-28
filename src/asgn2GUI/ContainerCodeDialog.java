@@ -100,7 +100,6 @@ public class ContainerCodeDialog extends AbstractDialog {
              */
             private void validate() {
             	//Kian 
-            	System.out.println(txtCode.getText());
             	try {
 					codeTest = new ContainerCode(txtCode.getText());
 					lblErrorInfo.setText("No Error");
@@ -108,7 +107,6 @@ public class ContainerCodeDialog extends AbstractDialog {
 				} catch (InvalidCodeException e) {
 					errorMessage = e.getMessage();
 					lblErrorInfo.setText(errorMessage);
-					System.out.println(e.getMessage());
 				}
             }
         });
@@ -127,7 +125,7 @@ public class ContainerCodeDialog extends AbstractDialog {
     		code = codeTest;
     		return true;
     	} else {
-    		JOptionPane.showMessageDialog(this, errorMessage);
+    		JOptionPane.showMessageDialog(this, errorMessage, "Invalid Code", JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     }

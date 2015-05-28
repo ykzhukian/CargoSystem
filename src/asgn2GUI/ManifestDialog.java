@@ -95,19 +95,19 @@ public class ManifestDialog extends AbstractDialog {
         try {
             Integer.parseInt(numStacks);
          } catch (NumberFormatException e) {
-        	JOptionPane.showMessageDialog(this, "Invalid Stack Number Type");
+        	JOptionPane.showMessageDialog(this, "ManifestException: Invalid Stack Number Type", numStacks, JOptionPane.ERROR_MESSAGE);
             return false;
         }
         try {
             Integer.parseInt(maxHeight);
          } catch (NumberFormatException e) {
-        	JOptionPane.showMessageDialog(this, "Invalid Max Height Type");
+        	 JOptionPane.showMessageDialog(this, "ManifestException:Invalid Max Height Type", maxHeight, JOptionPane.ERROR_MESSAGE);
             return false;
         }
         try {
             Integer.parseInt(maxWeight);
          } catch (NumberFormatException e) {
-        	JOptionPane.showMessageDialog(this, "Invalid Max Weight Type");
+        	 JOptionPane.showMessageDialog(this, "ManifestException:Invalid Max Weight Type", maxWeight, JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (txtNumStacks.getText() != null && txtMaxHeight.getText() != null && txtMaxWeight.getText() != null) {
@@ -115,10 +115,9 @@ public class ManifestDialog extends AbstractDialog {
 				manifest = new CargoManifest(Integer.parseInt(numStacks), Integer.parseInt(maxHeight), Integer.parseInt(maxWeight));
 				return true;
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "Invalid Input Type");
 				return false;
 			} catch (ManifestException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage());
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Invalid Manifest", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
         } else {

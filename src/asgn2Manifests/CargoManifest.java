@@ -115,12 +115,10 @@ public class CargoManifest {
 		if (newContainer.getGrossWeight() + currentWeight > maxWeight) {
 			throw new ManifestException("Exceed the ship's weight limit");
 		}
-		System.out.println("current: " + currentWeight + " Max: "+ maxWeight);
 		
 		if (codes.containsKey(newContainer.getCode().toString())) {
 			throw new ManifestException("A duplicate code has been found");
 		}
-		
 		for (int i = 0; i < numStacks; i++) {
 			if (stackType.get(i) != null) {
 				if (stackType.get(i).equals(newContainer.getType())) {
